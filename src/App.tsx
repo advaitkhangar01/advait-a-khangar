@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code2, ArrowUpRight, Palette } from 'lucide-react';
+import { ArrowUpRight, Palette } from 'lucide-react';
+import LogoIcon from './components/LogoIcon';
 
 gsap.registerPlugin(ScrollTrigger);
 import SystemCore from './components/SystemCore';
@@ -269,14 +270,23 @@ export const App: React.FC = () => {
         }
       });
 
-      // D. Cybernetic Block Reveal animations
+      // D. Cybernetic Block Reveal animations (Dual-Layer Sweep)
       const blockRevealElements = gsap.utils.toArray('.gsap-reveal-block') as HTMLElement[];
       blockRevealElements.forEach((el) => {
-        let bar = el.querySelector('.reveal-block-bar') as HTMLElement;
-        if (!bar) {
-          bar = document.createElement('span');
-          bar.className = 'reveal-block-bar';
-          el.appendChild(bar);
+        let barBack = el.querySelector('.reveal-block-bar.bar-back') as HTMLElement;
+        let barFront = el.querySelector('.reveal-block-bar.bar-front') as HTMLElement;
+        
+        if (!barBack || !barFront) {
+          el.querySelectorAll('.reveal-block-bar').forEach(c => c.remove());
+          
+          barBack = document.createElement('span');
+          barBack.className = 'reveal-block-bar bar-back';
+          
+          barFront = document.createElement('span');
+          barFront.className = 'reveal-block-bar bar-front';
+          
+          el.appendChild(barBack);
+          el.appendChild(barFront);
         }
 
         const tl = gsap.timeline({
@@ -287,22 +297,24 @@ export const App: React.FC = () => {
           }
         });
 
-        tl.to(bar, {
+        tl.to([barBack, barFront], {
           scaleX: 1,
           duration: 0.5,
-          ease: 'power2.inOut',
+          stagger: 0.08,
+          ease: 'power3.inOut',
           transformOrigin: 'left'
         })
         .set(el, { color: 'inherit' }) // reveal original text
-        .to(bar, {
+        .to([barBack, barFront], {
           scaleX: 0,
           duration: 0.5,
-          ease: 'power2.inOut',
+          stagger: 0.08,
+          ease: 'power3.inOut',
           transformOrigin: 'right'
         });
       });
 
-      // E. Decrypt/Scramble Text Reveal & Typewriter effects
+      // E. Decrypt/Scramble Text Reveal & Typewriter effects (With Glitch Initializer & Glow Locks)
       const typewriterElements = gsap.utils.toArray('.gsap-reveal-typewriter, .gsap-reveal-scramble') as HTMLElement[];
       typewriterElements.forEach((el) => {
         const originalText = el.textContent || '';
@@ -314,29 +326,55 @@ export const App: React.FC = () => {
           start: 'top 90%',
           toggleActions: 'play none none none',
           onEnter: () => {
-            let progress = 0;
-            const speed = Number(el.dataset.typeSpeed) || 30; // ms per char
-            const chars = '01#$/\\_-+=%*@[]{}&?!';
             const decryptMode = el.classList.contains('gsap-reveal-scramble');
+            
+            if (decryptMode) {
+              let glitchCount = 0;
+              const glitchInterval = setInterval(() => {
+                el.innerHTML = glitchCount % 2 === 0 
+                  ? `<span style="color: var(--accent-gold-text); text-shadow: 0 0 10px var(--accent-gold);">[DECRYPTING...]</span>`
+                  : `<span style="color: var(--text-secondary);">[DECRYPTING...]</span>`;
+                glitchCount++;
+                
+                if (glitchCount > 5) {
+                  clearInterval(glitchInterval);
+                  runReveal();
+                }
+              }, 70);
+            } else {
+              runReveal();
+            }
 
-            const interval = setInterval(() => {
-              progress++;
-              if (progress > originalText.length) {
-                el.textContent = originalText;
-                el.classList.remove('typewriter-cursor'); // remove cursor
-                clearInterval(interval);
-                return;
-              }
+            function runReveal() {
+              el.textContent = '';
+              let progress = 0;
+              const speed = Number(el.dataset.typeSpeed) || 30; // ms per char
+              const chars = '01#$/\\_-+=%*@[]{}&?!';
 
-              let text = originalText.substring(0, progress - 1);
-              if (decryptMode) {
-                const randomChar = chars[Math.floor(Math.random() * chars.length)];
-                text += randomChar;
-              } else {
-                text += originalText.charAt(progress - 1);
-              }
-              el.textContent = text;
-            }, speed);
+              const interval = setInterval(() => {
+                progress++;
+                if (progress > originalText.length) {
+                  el.innerHTML = originalText;
+                  el.classList.remove('typewriter-cursor'); // remove cursor
+                  clearInterval(interval);
+                  
+                  gsap.fromTo(el,
+                    { textShadow: '0 0 16px var(--accent-gold)', color: 'var(--accent-gold-text)' },
+                    { textShadow: 'none', color: 'inherit', duration: 0.7, ease: 'power2.out' }
+                  );
+                  return;
+                }
+
+                let completedText = originalText.substring(0, progress - 1);
+                if (decryptMode && progress <= originalText.length) {
+                  const randomChar = chars[Math.floor(Math.random() * chars.length)];
+                  const activeSpan = `<span class="scramble-active-char">${randomChar}</span>`;
+                  el.innerHTML = completedText + activeSpan;
+                } else {
+                  el.textContent = completedText + originalText.charAt(progress - 1);
+                }
+              }, speed);
+            }
           }
         });
       });
@@ -408,7 +446,7 @@ export const App: React.FC = () => {
         {/* Brand Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div className="cyber-logo-box">
-            <Code2 size={16} color="var(--accent-gold)" />
+            <LogoIcon size={20} className="logo-svg" />
             <span className="cyber-dot-pulsator" />
           </div>
           <div className="logo-title-cyber">

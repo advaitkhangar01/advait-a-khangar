@@ -95,8 +95,13 @@ export const ContactMoment: React.FC = () => {
   ];
 
   const [selectedModules, setSelectedModules] = useState<string[]>(['ai-agents']);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [businessName, setBusinessName] = useState('');
+  const [requirements, setRequirements] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const toggleModule = (id: string) => {
@@ -144,16 +149,63 @@ export const ContactMoment: React.FC = () => {
     };
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    setFormSubmitted(true);
+    if (!name || !email || !phone || !businessName || !requirements) {
+      setSubmitError('Please fill in all the required fields.');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const payload = {
+      name,
+      email,
+      phone,
+      "Office / Brand Name": businessName,
+      "Requirements / How May I Help": requirements,
+      "Selected Modules": selectedModules.map(id => {
+        const mod = modules.find(m => m.id === id);
+        return mod ? mod.name : id;
+      }).join(', '),
+      "Estimated Tasks Handled": `${stats.throughput.toLocaleString()} / day`,
+      "Estimated Hours Saved": `${stats.automatedHours.toLocaleString()} hrs/month`,
+      "Estimated Avg Load Speed": `Instant (<${stats.avgLatency}ms)`,
+      "Total Modules Configured": stats.nodeCount,
+      // FormSubmit special fields
+      _subject: `New Project Inquiry from ${name} (${businessName})`,
+      _honey: "", // Honeypot field for spam prevention
+      _captcha: "false" // Disable captcha for smooth AJAX redirect/handling
+    };
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/advaitkhangar01@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+      } else {
+        const data = await response.json();
+        setSubmitError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setSubmitError('Failed to send message. Please check your internet connection.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const stats = getAggregatedMetrics();
 
   return (
-    <section className="moment-section contact-moment-section" style={{ position: 'relative', zIndex: 3, background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(12px)', borderTop: '1px solid var(--border-light)', paddingBottom: '140px' }}>
+    <section className="moment-section contact-moment-section" style={{ position: 'relative', zIndex: 3, background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(12px)', borderTop: '1px solid var(--border-light)', paddingBottom: '80px' }}>
       
       {/* Component Specific Style Injector */}
       <style>{`
@@ -325,7 +377,7 @@ export const ContactMoment: React.FC = () => {
           background: var(--surface-primary);
           border: 1px solid var(--border-light);
           border-radius: 16px;
-          padding: 48px;
+          padding: 32px;
           box-shadow: var(--shadow-premium);
           position: relative;
           overflow: hidden;
@@ -345,10 +397,11 @@ export const ContactMoment: React.FC = () => {
 
         .luxury-input-group {
           position: relative;
-          margin-bottom: 32px;
+          margin-bottom: 24px;
         }
 
-        .luxury-input-group input {
+        .luxury-input-group input,
+        .luxury-input-group textarea {
           width: 100%;
           padding: 14px 0 10px;
           background: transparent;
@@ -359,6 +412,11 @@ export const ContactMoment: React.FC = () => {
           color: var(--text-primary);
           outline: none;
           transition: all 0.4s ease;
+        }
+
+        .luxury-input-group textarea {
+          resize: vertical;
+          min-height: 80px;
         }
 
         .luxury-input-group label {
@@ -375,7 +433,9 @@ export const ContactMoment: React.FC = () => {
 
         /* Floating Input Label Effect */
         .luxury-input-group input:focus ~ label,
-        .luxury-input-group input:not(:placeholder-shown) ~ label {
+        .luxury-input-group input:not(:placeholder-shown) ~ label,
+        .luxury-input-group textarea:focus ~ label,
+        .luxury-input-group textarea:not(:placeholder-shown) ~ label {
           top: -14px;
           font-size: 0.75rem;
           font-weight: 700;
@@ -384,7 +444,8 @@ export const ContactMoment: React.FC = () => {
           text-transform: uppercase;
         }
 
-        .luxury-input-group input:focus {
+        .luxury-input-group input:focus,
+        .luxury-input-group textarea:focus {
           border-bottom-color: var(--accent-gold);
         }
 
@@ -398,9 +459,22 @@ export const ContactMoment: React.FC = () => {
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .luxury-input-group input:focus ~ .luxury-input-focus-line {
+        .luxury-input-group input:focus ~ .luxury-input-focus-line,
+        .luxury-input-group textarea:focus ~ .luxury-input-focus-line {
           width: 100%;
           left: 0;
+        }
+
+        .form-error-message {
+          color: #EF4444;
+          font-family: var(--font-interface);
+          font-size: 0.85rem;
+          margin-top: 16px;
+          padding: 12px;
+          background: rgba(239, 68, 68, 0.06);
+          border-left: 3px solid #EF4444;
+          border-radius: 4px;
+          line-height: 1.4;
         }
 
         /* Drawing success animations */
@@ -452,7 +526,7 @@ export const ContactMoment: React.FC = () => {
             </span>
 
             {/* Checklist stack */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px' }} className="gsap-reveal-stagger">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }} className="gsap-reveal-stagger">
               {modules.map((m) => {
                 const isActive = selectedModules.includes(m.id);
                 return (
@@ -623,6 +697,23 @@ export const ContactMoment: React.FC = () => {
                   3. Ready to get started?
                 </span>
 
+                {/* Honeypot field for spam prevention */}
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+
+                <div className="luxury-input-group">
+                  <input
+                    type="text"
+                    required
+                    id="userName"
+                    placeholder=" "
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <div className="luxury-input-focus-line" />
+                  <label htmlFor="userName">Your Full Name</label>
+                </div>
+
                 <div className="luxury-input-group">
                   <input
                     type="email"
@@ -631,9 +722,24 @@ export const ContactMoment: React.FC = () => {
                     placeholder=" "
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
                   />
                   <div className="luxury-input-focus-line" />
-                  <label htmlFor="userEmail">What's your best email?</label>
+                  <label htmlFor="userEmail">Your Email Address</label>
+                </div>
+
+                <div className="luxury-input-group">
+                  <input
+                    type="tel"
+                    required
+                    id="userPhone"
+                    placeholder=" "
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <div className="luxury-input-focus-line" />
+                  <label htmlFor="userPhone">Your Phone Number</label>
                 </div>
 
                 <div className="luxury-input-group">
@@ -644,15 +750,40 @@ export const ContactMoment: React.FC = () => {
                     placeholder=" "
                     value={businessName}
                     onChange={(e) => setBusinessName(e.target.value)}
+                    disabled={isSubmitting}
                   />
                   <div className="luxury-input-focus-line" />
-                  <label htmlFor="companyName">What is your company or project name?</label>
+                  <label htmlFor="companyName">Office / Brand Name</label>
                 </div>
 
+                <div className="luxury-input-group">
+                  <textarea
+                    required
+                    id="userRequirements"
+                    placeholder=" "
+                    value={requirements}
+                    onChange={(e) => setRequirements(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <div className="luxury-input-focus-line" />
+                  <label htmlFor="userRequirements">Requirements / How may I help?</label>
+                </div>
+
+                {submitError && (
+                  <div className="form-error-message">
+                    {submitError}
+                  </div>
+                )}
+
                 <div style={{ marginTop: '24px' }}>
-                  <button type="submit" className="btn-premium" style={{ width: '100%', justifyContent: 'center' }}>
-                    <span>Send Me My Custom Plan</span>
-                    <ArrowRight size={18} />
+                  <button 
+                    type="submit" 
+                    className="btn-premium" 
+                    style={{ width: '100%', justifyContent: 'center', opacity: isSubmitting ? 0.7 : 1, pointerEvents: isSubmitting ? 'none' : 'auto' }}
+                    disabled={isSubmitting}
+                  >
+                    <span>{isSubmitting ? 'Sending Request...' : 'Send Me My Custom Plan'}</span>
+                    <ArrowRight size={18} style={{ transform: isSubmitting ? 'translateX(4px)' : 'none', transition: 'transform 0.3s' }} />
                   </button>
                 </div>
 

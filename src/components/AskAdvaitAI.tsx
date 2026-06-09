@@ -104,9 +104,9 @@ export const AskAdvaitAI: React.FC = () => {
         <div className="grid-editorial-2col" style={{ alignItems: 'stretch' }}>
           
           {/* Preset Queries list */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '32px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '24px' }}>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }} className="gsap-reveal-stagger">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }} className="gsap-reveal-stagger">
               <span className="gsap-reveal-item" style={{ fontFamily: 'var(--font-interface)', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
                 CHOOSE A QUICK QUESTION
               </span>
@@ -189,7 +189,7 @@ export const AskAdvaitAI: React.FC = () => {
             borderRadius: '8px',
             border: '1px solid rgba(255,255,255,0.05)',
             boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
-            padding: '40px',
+            padding: '32px',
             fontFamily: 'monospace',
             display: 'flex',
             flexDirection: 'column',

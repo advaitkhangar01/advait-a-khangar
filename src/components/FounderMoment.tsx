@@ -60,7 +60,7 @@ export const FounderMoment: React.FC = () => {
             <blockquote className="gsap-reveal-fade-up" style={{ 
               borderLeft: '4px solid var(--accent-gold)', 
               paddingLeft: '24px', 
-              margin: '40px 0', 
+              margin: '24px 0', 
               fontFamily: 'var(--font-editorial)',
               fontSize: '1.25rem',
               color: 'var(--text-primary)',
@@ -71,7 +71,7 @@ export const FounderMoment: React.FC = () => {
           </div>
 
           {/* Philosophy list (Avoid repetitive grids: clean stack list) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }} className="gsap-reveal-stagger">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }} className="gsap-reveal-stagger">
             <div className="gsap-reveal-item" style={{ 
               fontFamily: 'var(--font-interface)', 
               fontSize: '0.85rem', 

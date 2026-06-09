@@ -183,27 +183,17 @@ const ArchitecturalGlassRing: React.FC<GlassRingProps> = ({ radius, width, speed
 
   return (
     <group ref={groupRef}>
-      {/* Faceted Glass Torus (Faceted radial cross-sections create beautiful diamond-like reflections) */}
+      {/* Faceted Reflective Torus (Optimized using meshPhysicalMaterial to prevent shader compile lag) */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[radius, tubeRadius, sides, 80]} />
-        <MeshTransmissionMaterial
-          backside
-          samples={4}
-          thickness={1.0}
-          chromaticAberration={0.16}
-          anisotropy={0.4}
-          distortion={0.15}
-          distortionScale={0.15}
-          temporalDistortion={0.0}
-          clearcoat={1.0}
-          clearcoatRoughness={0.05}
-          roughness={0.06}
-          attenuationDistance={1.0}
-          attenuationColor="#FAFAF8"
+        <meshPhysicalMaterial
           color={color}
-          iridescence={0.85}
-          iridescenceIOR={1.5}
-          transmission={0.96}
+          roughness={0.08}
+          metalness={0.9}
+          clearcoat={1.0}
+          clearcoatRoughness={0.02}
+          transparent
+          opacity={0.65}
         />
       </mesh>
 
@@ -434,23 +424,23 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
         ease: 'power2.inOut'
       });
 
-      // Phase 2: Zoom forward elastically and glide to the right Hero position
+      // Phase 2: Zoom forward and glide to the right Hero position (Smooth exponential ease)
       tl.to(transitionProps.current, {
         x: 1,
         y: 0, // Settle back to 0 scroll position
         z: 0,
         scale: 1.0,
-        duration: 1.6,
-        ease: 'elastic.out(1.0, 0.75)'
-      }, '-=0.1');
+        duration: 1.8,
+        ease: 'expo.out'
+      }, '-=0.15');
 
-      // Phase 3: Concentric rings and pipelines fly out with spring back
+      // Phase 3: Concentric rings and pipelines fly out with a soft back spring
       tl.to(transitionProps.current, {
         ringsScale: 1.0,
         opacity: 1.0,
-        duration: 1.4,
-        ease: 'back.out(1.7)'
-      }, '-=1.4');
+        duration: 1.5,
+        ease: 'back.out(1.2)'
+      }, '-=1.5');
     } else {
       transitionProps.current.x = 0;
       transitionProps.current.y = -1.5; // Shifted down to bottom half during loading
@@ -464,11 +454,11 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
   useFrame((state) => {
     if (!groupRef.current) return;
     
-    // 1. Mouse Parallax (Gentle Spring Damping)
-    const targetX = mouse.current.x * 0.3;
-    const targetY = mouse.current.y * 0.3;
-    groupRef.current.rotation.y += (targetX - groupRef.current.rotation.y) * 0.05;
-    groupRef.current.rotation.x += (targetY - groupRef.current.rotation.x) * 0.05;
+    // 1. Mouse Parallax (Luxurious Float Damping)
+    const targetX = mouse.current.x * 0.25;
+    const targetY = mouse.current.y * 0.25;
+    groupRef.current.rotation.y += (targetX - groupRef.current.rotation.y) * 0.035;
+    groupRef.current.rotation.x += (targetY - groupRef.current.rotation.x) * 0.035;
     
     // 2. Scroll Transformation
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -507,10 +497,10 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
     const targetPos = new THREE.Vector3().lerpVectors(new THREE.Vector3(0, p.y, p.z), scrollTargetPos, p.x);
     const targetScale = p.scale * THREE.MathUtils.lerp(1.1, scrollTargetScale, p.x);
 
-    // Apply smooth linear interpolation (lerp)
-    groupRef.current.position.lerp(targetPos, 0.06);
+    // Apply smooth linear interpolation (lerp - optimized to 0.04 for fluid inertia)
+    groupRef.current.position.lerp(targetPos, 0.04);
     const currentScale = groupRef.current.scale.x;
-    const nextScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.06);
+    const nextScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.04);
     groupRef.current.scale.set(nextScale, nextScale, nextScale);
 
     // Slowly drift position for cinematic ambient flow
@@ -598,7 +588,7 @@ export const SystemCore: React.FC<SystemCoreProps> = ({ theme, isPreloaded }) =>
         <SceneController theme={theme} isPreloaded={isPreloaded} />
         
         {/* Subdued ambient environment grids */}
-        <gridHelper args={[20, 20, '#A8ADB4', 'transparent']} position={[0, -4, 0]} />
+        <gridHelper args={[20, 20, '#A8ADB4', '#E5E7EB']} position={[0, -4, 0]} />
       </Canvas>
     </div>
   );

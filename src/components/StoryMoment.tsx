@@ -8,7 +8,7 @@ export const StoryMoment: React.FC = () => {
   ];
 
   return (
-    <section className="moment-section story-moment-section" style={{ position: 'relative', zIndex: 3, background: 'rgba(250, 250, 248, 0.9)', paddingTop: '60px', paddingBottom: '60px' }}>
+    <section className="moment-section story-moment-section" style={{ position: 'relative', zIndex: 3, background: 'rgba(250, 250, 248, 0.9)', paddingTop: '40px', paddingBottom: '40px' }}>
       <div style={{ width: '90%', margin: '0 auto', maxWidth: '1440px' }}>
         
         {/* Main Editorial Quote */}

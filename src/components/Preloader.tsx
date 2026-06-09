@@ -32,6 +32,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const progressFillRef = useRef<HTMLDivElement>(null);
 
   const activeColors = THEME_MAP[theme] || THEME_MAP.gold;
   const activeColor = activeColors.primary;
@@ -63,18 +64,18 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
     exitTimeline.to(
       pathRef.current,
       {
-        duration: 0.9,
+        duration: 1.1,
         attr: { d: 'M 0 0 L 100 0 L 100 0 Q 50 100 0 0 Z' },
-        ease: 'power3.inOut'
+        ease: 'power4.inOut'
       },
-      '-=0.4'
+      '-=0.45'
     );
 
     // Flatten vector wave past the boundary
     exitTimeline.to(pathRef.current, {
-      duration: 0.35,
+      duration: 0.4,
       attr: { d: 'M 0 0 L 100 0 L 100 0 L 0 0 Z' },
-      ease: 'power1.out'
+      ease: 'power2.out'
     });
 
     // Close down preloader container overlay
@@ -98,12 +99,19 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
     gsap.to(progressObj, {
       value: 100,
       duration: 2.2, // Smooth, editorial duration
-      ease: 'power2.out',
+      ease: 'power3.out',
       onUpdate: () => {
-        setBootProgress(Math.floor(progressObj.value));
+        const val = Math.floor(progressObj.value);
+        setBootProgress(val);
+        if (progressFillRef.current) {
+          progressFillRef.current.style.width = `${progressObj.value}%`;
+        }
       },
       onComplete: () => {
         setBootProgress(100);
+        if (progressFillRef.current) {
+          progressFillRef.current.style.width = '100%';
+        }
         setTimeout(() => {
           triggerExitTimeline();
         }, 300);
@@ -153,9 +161,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
             {/* Divider Line */}
             <div className="preloader-welcome-line-track">
               <div 
+                ref={progressFillRef}
                 className="preloader-welcome-line-fill" 
                 style={{ 
-                  width: `${bootProgress}%`,
+                  width: '0%',
                   backgroundColor: activeColor,
                   boxShadow: `0 0 8px ${activeColor}`
                 }} 

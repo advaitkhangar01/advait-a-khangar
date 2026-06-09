@@ -20,7 +20,7 @@ export const HeroMoment: React.FC<HeroMomentProps> = ({ onExplore, onContact }) 
             </div>
           </div>
           
-          <h1 className="editorial-title-large" style={{ marginBottom: '40px', fontWeight: 400, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <h1 className="editorial-title-large" style={{ marginBottom: '20px', fontWeight: 400, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <span className="line-mask-wrapper">
               <span className="hidden-reveal-line">I BUILD</span>
             </span>
@@ -35,7 +35,7 @@ export const HeroMoment: React.FC<HeroMomentProps> = ({ onExplore, onContact }) 
             </span>
           </h1>
           
-          <div className="line-mask-wrapper" style={{ marginBottom: '56px', display: 'block' }}>
+          <div className="line-mask-wrapper" style={{ marginBottom: '32px', display: 'block' }}>
             <p className="editorial-text hidden-reveal-line" style={{ fontSize: '1.25rem' }}>
               Full Stack Developer &amp; AI Automation Engineer building custom tools that handle your repetitive daily tasks, save hundreds of hours, and help your business grow smoothly without extra staff.
             </p>
@@ -56,9 +56,9 @@ export const HeroMoment: React.FC<HeroMomentProps> = ({ onExplore, onContact }) 
           <div style={{ 
             display: 'flex', 
             gap: '80px', 
-            marginTop: '120px', 
+            marginTop: '60px', 
             borderTop: '1px solid var(--border-light)', 
-            paddingTop: '40px',
+            paddingTop: '20px',
             maxWidth: '650px',
             opacity: 0,
             transform: 'translateY(15px)'

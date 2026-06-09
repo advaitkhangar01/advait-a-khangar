@@ -386,7 +386,7 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
     }
   };
 
-  // 6. Constellation Background Loop & Actual FPS counter
+  // 6. Constellation Background Loop & Actual FPS counter (Intersection Optimized)
   useEffect(() => {
     const canvas = bgCanvasRef.current;
     if (!canvas) return;
@@ -444,8 +444,15 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
       parent.addEventListener('click', handleCanvasClick);
     }
 
+    const isIntersectingRef = { current: false };
+
     // Animation frames loop
     const renderConstellation = () => {
+      if (!isIntersectingRef.current) {
+        bgRequestRef.current = null;
+        return; // Pause rendering loop when offscreen
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Measure Actual Frame Latency & FPS
@@ -567,7 +574,23 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
       bgRequestRef.current = requestAnimationFrame(renderConstellation);
     };
 
-    renderConstellation();
+    // Initialize Intersection Observer to only run loop when footer is in view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasIntersecting = isIntersectingRef.current;
+        isIntersectingRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && !wasIntersecting) {
+          // Restart loop
+          if (bgRequestRef.current) cancelAnimationFrame(bgRequestRef.current);
+          bgRequestRef.current = requestAnimationFrame(renderConstellation);
+        }
+      },
+      { threshold: 0.01 }
+    );
+
+    if (footerContainerRef.current) {
+      observer.observe(footerContainerRef.current);
+    }
 
     return () => {
       window.removeEventListener('resize', resizeBgCanvas);
@@ -576,6 +599,7 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
         parent.removeEventListener('mouseleave', clearMousePos);
         parent.removeEventListener('click', handleCanvasClick);
       }
+      observer.disconnect();
       if (bgRequestRef.current) cancelAnimationFrame(bgRequestRef.current);
     };
   }, []);
