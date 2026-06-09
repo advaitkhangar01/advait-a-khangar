@@ -9,7 +9,8 @@ import {
   Check, 
   Clock, 
   Zap, 
-  Workflow 
+  Workflow,
+  ChevronDown
 } from 'lucide-react';
 
 interface SystemModule {
@@ -99,6 +100,10 @@ export const ContactMoment: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [businessName, setBusinessName] = useState('');
+  const [budget, setBudget] = useState('');
+  const [timeline, setTimeline] = useState('');
+  const [referral, setReferral] = useState('');
+  const [website, setWebsite] = useState('');
   const [requirements, setRequirements] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -151,7 +156,7 @@ export const ContactMoment: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone || !businessName || !requirements) {
+    if (!name || !email || !phone || !businessName || !requirements || !budget || !timeline || !referral) {
       setSubmitError('Please fill in all the required fields.');
       return;
     }
@@ -163,21 +168,27 @@ export const ContactMoment: React.FC = () => {
       name,
       email,
       phone,
-      "Office / Brand Name": businessName,
-      "Requirements / How May I Help": requirements,
-      "Selected Modules": selectedModules.map(id => {
+      office_brand_name: businessName,
+      project_budget: budget,
+      desired_timeline: timeline,
+      referral_source: referral,
+      existing_website: website || 'None provided',
+      requirements_how_may_i_help: requirements,
+      selected_modules: selectedModules.map(id => {
         const mod = modules.find(m => m.id === id);
         return mod ? mod.name : id;
       }).join(', '),
-      "Estimated Tasks Handled": `${stats.throughput.toLocaleString()} / day`,
-      "Estimated Hours Saved": `${stats.automatedHours.toLocaleString()} hrs/month`,
-      "Estimated Avg Load Speed": `Instant (<${stats.avgLatency}ms)`,
-      "Total Modules Configured": stats.nodeCount,
+      estimated_tasks_handled: `${stats.throughput.toLocaleString()} / day`,
+      estimated_hours_saved: `${stats.automatedHours.toLocaleString()} hrs/month`,
+      estimated_avg_load_speed: `Instant (<${stats.avgLatency}ms)`,
+      total_modules_configured: stats.nodeCount,
       // FormSubmit special fields
       _subject: `New Project Inquiry from ${name} (${businessName})`,
       _honey: "", // Honeypot field for spam prevention
       _captcha: "false" // Disable captcha for smooth AJAX redirect/handling
     };
+
+    console.log("Submitting contact form payload:", payload);
 
     try {
       const response = await fetch('https://formsubmit.co/ajax/advaitkhangar01@gmail.com', {
@@ -189,14 +200,20 @@ export const ContactMoment: React.FC = () => {
         body: JSON.stringify(payload)
       });
 
+      console.log("FormSubmit API response status:", response.status);
+
       if (response.ok) {
+        const result = await response.json();
+        console.log("FormSubmit API success result:", result);
         setFormSubmitted(true);
       } else {
         const data = await response.json();
+        console.error("FormSubmit API error data:", data);
         setSubmitError(data.message || 'Something went wrong. Please try again.');
       }
     } catch (err) {
-      setSubmitError('Failed to send message. Please check your internet connection.');
+      console.error("Network or CORS error submitting contact form:", err);
+      setSubmitError('Failed to send message. Please check your internet connection or developer console.');
     } finally {
       setIsSubmitting(false);
     }
@@ -477,6 +494,80 @@ export const ContactMoment: React.FC = () => {
           line-height: 1.4;
         }
 
+        /* Responsive intake grid */
+        .luxury-form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 8px;
+        }
+
+        .luxury-form-grid-full {
+          grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+          .luxury-form-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .luxury-form-grid-full {
+            grid-column: span 1;
+          }
+        }
+
+        /* Select elements custom luxury styles */
+        .luxury-input-group select {
+          width: 100%;
+          padding: 14px 24px 10px 0;
+          background: transparent;
+          border: none;
+          border-bottom: 1.5px solid var(--border-medium);
+          font-family: var(--font-interface);
+          font-size: 1.05rem;
+          color: var(--text-primary);
+          outline: none;
+          transition: all 0.4s ease;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          cursor: pointer;
+        }
+
+        /* Float select label when focused or has value */
+        .luxury-input-group select:focus ~ label,
+        .luxury-input-group select.has-value ~ label {
+          top: -14px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          color: var(--accent-gold-text);
+          text-transform: uppercase;
+        }
+
+        .luxury-input-group select:focus {
+          border-bottom-color: var(--accent-gold);
+        }
+
+        .luxury-input-group select:focus ~ .luxury-input-focus-line {
+          width: 100%;
+          left: 0;
+        }
+
+        .luxury-select-chevron {
+          position: absolute;
+          right: 0;
+          top: 16px;
+          color: var(--text-secondary);
+          pointer-events: none;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+        }
+
+        .luxury-input-group select:focus ~ .luxury-select-chevron {
+          transform: rotate(180deg);
+          color: var(--accent-gold);
+        }
+
         /* Drawing success animations */
         .success-card {
           text-align: center;
@@ -693,89 +784,174 @@ export const ContactMoment: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontFamily: 'var(--font-interface)', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '36px' }}>
-                  3. Ready to get started?
+                <span style={{ fontFamily: 'var(--font-interface)', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '28px' }}>
+                  3. Project Intake Form
                 </span>
 
                 {/* Honeypot field for spam prevention */}
                 <input type="text" name="_honey" style={{ display: 'none' }} />
 
-                <div className="luxury-input-group">
-                  <input
-                    type="text"
-                    required
-                    id="userName"
-                    placeholder=" "
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                  <div className="luxury-input-focus-line" />
-                  <label htmlFor="userName">Your Full Name</label>
-                </div>
+                <div className="luxury-form-grid">
+                  
+                  {/* Name */}
+                  <div className="luxury-input-group">
+                    <input
+                      type="text"
+                      required
+                      id="userName"
+                      placeholder=" "
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="userName">Your Full Name</label>
+                  </div>
 
-                <div className="luxury-input-group">
-                  <input
-                    type="email"
-                    required
-                    id="userEmail"
-                    placeholder=" "
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                  <div className="luxury-input-focus-line" />
-                  <label htmlFor="userEmail">Your Email Address</label>
-                </div>
+                  {/* Email */}
+                  <div className="luxury-input-group">
+                    <input
+                      type="email"
+                      required
+                      id="userEmail"
+                      placeholder=" "
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="userEmail">Your Email Address</label>
+                  </div>
 
-                <div className="luxury-input-group">
-                  <input
-                    type="tel"
-                    required
-                    id="userPhone"
-                    placeholder=" "
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                  <div className="luxury-input-focus-line" />
-                  <label htmlFor="userPhone">Your Phone Number</label>
-                </div>
+                  {/* Phone */}
+                  <div className="luxury-input-group">
+                    <input
+                      type="tel"
+                      required
+                      id="userPhone"
+                      placeholder=" "
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="userPhone">Your Phone Number</label>
+                  </div>
 
-                <div className="luxury-input-group">
-                  <input
-                    type="text"
-                    required
-                    id="companyName"
-                    placeholder=" "
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                  <div className="luxury-input-focus-line" />
-                  <label htmlFor="companyName">Office / Brand Name</label>
-                </div>
+                  {/* Brand/Office Name */}
+                  <div className="luxury-input-group">
+                    <input
+                      type="text"
+                      required
+                      id="companyName"
+                      placeholder=" "
+                      value={businessName}
+                      onChange={(e) => setBusinessName(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="companyName">Office / Brand Name</label>
+                  </div>
 
-                <div className="luxury-input-group">
-                  <textarea
-                    required
-                    id="userRequirements"
-                    placeholder=" "
-                    value={requirements}
-                    onChange={(e) => setRequirements(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                  <div className="luxury-input-focus-line" />
-                  <label htmlFor="userRequirements">Requirements / How may I help?</label>
+                  {/* Budget Dropdown */}
+                  <div className="luxury-input-group">
+                    <select
+                      id="projectBudget"
+                      required
+                      value={budget}
+                      onChange={(e) => setBudget(e.target.value)}
+                      className={budget ? 'has-value' : ''}
+                      disabled={isSubmitting}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value="Under $5k">Under $5,000</option>
+                      <option value="$5k - $15k">$5,000 - $15,000</option>
+                      <option value="$15k - $30k">$15,000 - $30,000</option>
+                      <option value="$30k+">$30,000+</option>
+                    </select>
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="projectBudget">Project Budget</label>
+                    <ChevronDown size={15} className="luxury-select-chevron" />
+                  </div>
+
+                  {/* Timeline Dropdown */}
+                  <div className="luxury-input-group">
+                    <select
+                      id="projectTimeline"
+                      required
+                      value={timeline}
+                      onChange={(e) => setTimeline(e.target.value)}
+                      className={timeline ? 'has-value' : ''}
+                      disabled={isSubmitting}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value="Urgent (Immediate)">Urgent (Immediate)</option>
+                      <option value="1-2 Months">1 - 2 Months</option>
+                      <option value="Flexible / Exploring">Flexible / Exploring</option>
+                    </select>
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="projectTimeline">Desired Timeline</label>
+                    <ChevronDown size={15} className="luxury-select-chevron" />
+                  </div>
+
+                  {/* How did you find me Dropdown */}
+                  <div className="luxury-input-group">
+                    <select
+                      id="referralSource"
+                      required
+                      value={referral}
+                      onChange={(e) => setReferral(e.target.value)}
+                      className={referral ? 'has-value' : ''}
+                      disabled={isSubmitting}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value="Google Search">Google Search</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Word of Mouth / Referral">Word of Mouth / Referral</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="referralSource">How did you find me?</label>
+                    <ChevronDown size={15} className="luxury-select-chevron" />
+                  </div>
+
+                  {/* Existing Website / Ref (Optional) */}
+                  <div className="luxury-input-group">
+                    <input
+                      type="text"
+                      id="existingWebsite"
+                      placeholder=" "
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="existingWebsite">Existing Website Link (Optional)</label>
+                  </div>
+
+                  {/* Requirements / How may I help? */}
+                  <div className="luxury-input-group luxury-form-grid-full">
+                    <textarea
+                      required
+                      id="userRequirements"
+                      placeholder=" "
+                      value={requirements}
+                      onChange={(e) => setRequirements(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                    <div className="luxury-input-focus-line" />
+                    <label htmlFor="userRequirements">Requirements / How may I help?</label>
+                  </div>
+
                 </div>
 
                 {submitError && (
-                  <div className="form-error-message">
+                  <div className="form-error-message" style={{ marginBottom: '20px' }}>
                     {submitError}
                   </div>
                 )}
 
-                <div style={{ marginTop: '24px' }}>
+                <div style={{ marginTop: '12px' }}>
                   <button 
                     type="submit" 
                     className="btn-premium" 
@@ -787,7 +963,7 @@ export const ContactMoment: React.FC = () => {
                   </button>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)', borderTop: '1px solid var(--border-light)', paddingTop: '24px', marginTop: '36px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)', borderTop: '1px solid var(--border-light)', paddingTop: '20px', marginTop: '28px' }}>
                   <Calendar size={14} color="var(--accent-gold)" />
                   <span>We usually reply and set up a call within 48 hours!</span>
                 </div>
