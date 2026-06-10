@@ -52,6 +52,7 @@ export const App: React.FC = () => {
 
   // Moment Section Refs for Smooth Anchoring
   const heroRef = useRef<HTMLDivElement>(null);
+  const websitesRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const technicalRef = useRef<HTMLDivElement>(null);
   const founderRef = useRef<HTMLDivElement>(null);
@@ -457,20 +458,24 @@ export const App: React.FC = () => {
 
         {/* Desktop Menu */}
         <nav className="cyber-nav-container">
-          <button onClick={() => scrollToSection(productsRef)} className="nav-item-cyber">
+          <button onClick={() => scrollToSection(websitesRef)} className="nav-item-cyber">
             <span className="nav-item-idx">01 //</span>
+            Websites
+          </button>
+          <button onClick={() => scrollToSection(productsRef)} className="nav-item-cyber">
+            <span className="nav-item-idx">02 //</span>
             Software Tools
           </button>
           <button onClick={() => scrollToSection(technicalRef)} className="nav-item-cyber">
-            <span className="nav-item-idx">02 //</span>
+            <span className="nav-item-idx">03 //</span>
             Case Studies
           </button>
           <button onClick={() => scrollToSection(founderRef)} className="nav-item-cyber">
-            <span className="nav-item-idx">03 //</span>
+            <span className="nav-item-idx">04 //</span>
             How I Work
           </button>
           <button onClick={() => scrollToSection(aiRef)} className="nav-item-cyber">
-            <span className="nav-item-idx">04 //</span>
+            <span className="nav-item-idx">05 //</span>
             Ask AI
           </button>
         </nav>
@@ -489,15 +494,19 @@ export const App: React.FC = () => {
         
         <div ref={heroRef}>
           <HeroMoment 
-            onExplore={() => scrollToSection(productsRef)} 
+            onExplore={() => scrollToSection(websitesRef)} 
             onContact={() => scrollToSection(contactRef)} 
           />
         </div>
 
         <StoryMoment />
 
+        <div ref={websitesRef}>
+          <ProductMoment type="websites" />
+        </div>
+
         <div ref={productsRef}>
-          <ProductMoment />
+          <ProductMoment type="software" />
         </div>
 
         <div ref={technicalRef}>
@@ -521,7 +530,7 @@ export const App: React.FC = () => {
       {/* Interactive, sensory-rich Dashboard Footer */}
       <InteractiveFooter 
         scrollToSection={scrollToSection} 
-        references={{ heroRef, productsRef, technicalRef, founderRef }} 
+        references={{ heroRef, websitesRef, productsRef, technicalRef, founderRef }} 
       />
     </>
   );

@@ -16,6 +16,7 @@ interface InteractiveFooterProps {
   scrollToSection: (ref: React.RefObject<HTMLDivElement | null>) => void;
   references: {
     heroRef: React.RefObject<HTMLDivElement | null>;
+    websitesRef: React.RefObject<HTMLDivElement | null>;
     productsRef: React.RefObject<HTMLDivElement | null>;
     technicalRef: React.RefObject<HTMLDivElement | null>;
     founderRef: React.RefObject<HTMLDivElement | null>;
@@ -58,7 +59,7 @@ interface StarParticle {
 }
 
 export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSection, references }) => {
-  const { heroRef, productsRef, technicalRef, founderRef } = references;
+  const { heroRef, websitesRef, productsRef, technicalRef, founderRef } = references;
   
   // Custom states
   const [isMuted, setIsMuted] = useState(true);
@@ -1114,6 +1115,23 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
                   onMouseLeave={(e) => { e.currentTarget.style.color = '#8e95a5'; }}
                 >
                   <ChevronRight size={12} color="var(--accent-gold)" /> Home Moment
+                </button>
+                <button 
+                  onClick={() => scrollToSection(websitesRef)} 
+                  style={{ 
+                    textAlign: 'left', 
+                    color: '#8e95a5', 
+                    cursor: 'pointer', 
+                    fontSize: '0.88rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '6px',
+                    transition: 'color 0.2s' 
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#FFF'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#8e95a5'; }}
+                >
+                  <ChevronRight size={12} color="var(--accent-gold)" /> Websites
                 </button>
                 <button 
                   onClick={() => scrollToSection(productsRef)} 

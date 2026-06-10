@@ -41,7 +41,7 @@ interface Project {
 // SIMULATED WEB APP DASHBOARD COMPONENTS (LIVE PREVIEWS)
 // ==========================================================================
 
-const AquasaverPreview: React.FC = () => {
+const SunriseFarmsPreview: React.FC = () => {
   return (
     <div className="mock-dashboard-wrapper">
       <div className="mock-sidebar">
@@ -50,27 +50,63 @@ const AquasaverPreview: React.FC = () => {
       <div className="mock-main-content">
         <div className="mock-content-header">
           <div>
-            <div className="mock-title">Aquasaver Core Validator</div>
-            <div className="mock-subtitle">Water Saving &amp; Purification Optimization Metrics</div>
+            <div className="mock-title">Sunrise Farms Venue Manager</div>
+            <div className="mock-subtitle">Luxury Event Spaces &amp; Villa Booking Telemetry</div>
           </div>
           <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>SYSTEM ACTIVE</span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
           <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Flow Optimization</span>
-            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>14.2 L/sec</div>
-            <span style={{ fontSize: '0.6rem', color: '#27c93f' }}>Pressure valve within bounds</span>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Villa Availability</span>
+            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>92% Booked</div>
+            <span style={{ fontSize: '0.6rem', color: '#27c93f' }}>Weekend slots locked</span>
           </div>
           <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Filter Efficiency</span>
-            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>99.8% TDS</div>
-            <span style={{ fontSize: '0.6rem', color: 'var(--accent-gold)' }}>Purification active</span>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Media Delivery Speed</span>
+            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>0.42s LCP</div>
+            <span style={{ fontSize: '0.6rem', color: 'var(--accent-gold)' }}>Fully optimized assets</span>
           </div>
         </div>
         <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
-          <div>[1] SENSOR: Flow rate sensor online (14.2 L/sec)</div>
-          <div>[2] PURITY: Filter efficiency at 99.8% (TDS: 42)</div>
-          <div>[3] VALVE: Automated pressure regulation ... stable</div>
+          <div>[1] ASSET: Lazy loading high-resolution gallery images ... SUCCESS</div>
+          <div>[2] BOOK: Form ingestion validated for booking inquiries</div>
+          <div>[3] LEAD: Dispatching notification alert to admin WhatsApp channel</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const QyvorinPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Sliders size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">Qyvorin Core Console</div>
+            <div className="mock-subtitle">AI Assistant &amp; Glassmorphic Rendering State</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>ONLINE // MONITORING</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Lighthouse Speed</span>
+            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>98/100</div>
+            <span style={{ fontSize: '0.6rem', color: '#27c93f' }}>Google Core Web Vitals OK</span>
+          </div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>AI Agent Queries</span>
+            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>99.9% Uptime</div>
+            <span style={{ fontSize: '0.6rem', color: 'var(--accent-gold)' }}>Serverless agent running</span>
+          </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+          <div>[1] THEME: Rendered glassmorphic gradient layout layers</div>
+          <div>[2] AGENT: Active user session connected ... payload ingested</div>
+          <div>[3] SYSTEM: CSS animations initialized successfully at 120 FPS</div>
         </div>
       </div>
     </div>
@@ -233,119 +269,43 @@ const BillBookPreview: React.FC = () => {
   );
 };
 
-const W4YMarketingPreview: React.FC = () => {
+const DS16WebPreview: React.FC = () => {
   return (
     <div className="mock-dashboard-wrapper">
       <div className="mock-sidebar">
-        <div className="mock-sidebar-icon active"><Sliders size={18} /></div>
+        <div className="mock-sidebar-icon active"><Layout size={18} /></div>
       </div>
       <div className="mock-main-content">
         <div className="mock-content-header">
           <div>
-            <div className="mock-title">W4Y Interactive Sandbox</div>
-            <div className="mock-subtitle">Three.js WebGL &amp; GSAP Scroll Pinner</div>
+            <div className="mock-title">DS16 Architecture Showcase</div>
+            <div className="mock-subtitle">Portfolio Lazy Loader &amp; Layout Optimizer</div>
           </div>
-          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>GPU SHADER ACCELERATED</span>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>ASSETS SYNCED</span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>WebGL Frame Rate</span>
-            <div style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>144 FPS</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Blueprint Assets</span>
+            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>100% WebP</div>
+            <span style={{ fontSize: '0.6rem', color: '#27c93f' }}>Asset optimization enabled</span>
           </div>
-          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>GSAP Pinning State</span>
-            <div style={{ fontSize: '1.2rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>Locked // active</div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Client Lead Form</span>
+            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>SMTP Synced</div>
+            <span style={{ fontSize: '0.6rem', color: 'var(--accent-gold)' }}>Form processing online</span>
           </div>
         </div>
-        <div className="mock-ledger-log" style={{ maxHeight: '90px' }}>
-          <div>[1] ThreeJS: Initializing WebGL canvas layer</div>
-          <div>[2] GSAP: Pinned timeline bound to Lenis scroll controller</div>
-          <div>[3] SHIELD: Audit tracker active (15-day secure loop)</div>
+        <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+          <div>[1] COMPRESS: {"Compressed architectural plans 12MB -> 450KB WebP"}</div>
+          <div>[2] LAYOUT: CSS Grid rendering responsive blueprints portfolio</div>
+          <div>[3] FORM: Client contact validation hook ... online</div>
         </div>
       </div>
     </div>
   );
 };
 
-const ReachXMarketingPreview: React.FC = () => {
-  return (
-    <div className="mock-dashboard-wrapper">
-      <div className="mock-sidebar">
-        <div className="mock-sidebar-icon active"><Sparkles size={18} /></div>
-      </div>
-      <div className="mock-main-content">
-        <div className="mock-content-header">
-          <div>
-            <div className="mock-title">ReachX Marketing SPA Simulator</div>
-            <div className="mock-subtitle">Next.js &amp; Framer Motion 12 Scroll States</div>
-          </div>
-          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>ZOD VALIDATED</span>
-        </div>
-        <div className="mock-receptionist-grid">
-          <div className="mock-voice-visualizer" style={{ padding: '10px' }}>
-            <div className="mock-voice-pulse" style={{ height: '40px' }}>
-              <span className="mock-voice-bar"></span>
-              <span className="mock-voice-bar"></span>
-              <span className="mock-voice-bar"></span>
-              <span className="mock-voice-bar"></span>
-              <span className="mock-voice-bar"></span>
-              <span className="mock-voice-bar"></span>
-            </div>
-            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>Shader Pulses</span>
-          </div>
-          <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
-            <div>[1] SHADER: Uniform variables compiled (u_time: 489.2)</div>
-            <div>[2] ZOD: Form input verification passed (email, phone)</div>
-            <div>[3] SVG: Rendering live telemetry chart nodes</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const LoftCoworksPreview: React.FC = () => {
-  return (
-    <div className="mock-dashboard-wrapper">
-      <div className="mock-sidebar">
-        <div className="mock-sidebar-icon active"><Users size={18} /></div>
-      </div>
-      <div className="mock-main-content">
-        <div className="mock-content-header">
-          <div>
-            <div className="mock-title">Loft Coworks Portal</div>
-            <div className="mock-subtitle">Next.js App Router Workspace Booking</div>
-          </div>
-          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>SMTP CONNECTED</span>
-        </div>
-        <div className="mock-gateway-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-          <div className="mock-gateway-card" style={{ padding: '12px' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Hot Desk #42</span>
-            <div className="mock-status-glow green"></div>
-            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>OCCUPIED // LIVE</span>
-          </div>
-          <div className="mock-gateway-card" style={{ padding: '12px' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Booking Drawer</span>
-            <div className="mock-status-glow green"></div>
-            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>ACTIVE // OPENED</span>
-          </div>
-          <div className="mock-gateway-card" style={{ padding: '12px' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>SSG Blog compiled</span>
-            <div className="mock-status-glow green"></div>
-            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>GENERATE OK</span>
-          </div>
-        </div>
-        <div className="mock-ledger-log" style={{ maxHeight: '100px' }}>
-          <div>[1] SMTP: Booking inquiry email queued ... sent via Nodemailer</div>
-          <div>[2] SSG: Blog route compile (Static Site Generation)</div>
-          <div>[3] ACCESS: Member space check-in completed</div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const SDPAssociatesPreview: React.FC = () => {
+const ConcordPreview: React.FC = () => {
   return (
     <div className="mock-dashboard-wrapper">
       <div className="mock-sidebar">
@@ -354,26 +314,61 @@ const SDPAssociatesPreview: React.FC = () => {
       <div className="mock-main-content">
         <div className="mock-content-header">
           <div>
-            <div className="mock-title">SDP Component Injector</div>
-            <div className="mock-subtitle">Static Site Injection Script &amp; SEO Checks</div>
+            <div className="mock-title">Concord Fintech Services</div>
+            <div className="mock-subtitle">EMI Engine &amp; Corporate Intake Middleware</div>
           </div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', background: 'rgba(201, 162, 39, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>31 PAGES STATIC</span>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>SECURE ACCESS</span>
         </div>
-        <div className="mock-transcode-container">
-          <div className="mock-transcode-row" style={{ padding: '8px 12px' }}>
-            <div className="mock-transcode-meta">
-              <span style={{ fontWeight: 600, color: '#fff' }}>Component Injection</span>
-              <span style={{ color: '#27c93f', fontWeight: 'bold' }}>✓ SUCCESS</span>
-            </div>
-            <div style={{ fontSize: '0.65rem', color: '#8e95a5' }}>Headers/footers propagated into static HTML templates</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>SSL Protection</span>
+            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>256-Bit SSL</div>
+            <span style={{ fontSize: '0.6rem', color: '#27c93f' }}>Client data encrypted</span>
           </div>
-          <div className="mock-transcode-row" style={{ padding: '8px 12px' }}>
-            <div className="mock-transcode-meta">
-              <span style={{ fontWeight: 600, color: '#fff' }}>SEO Audit validation</span>
-              <span style={{ color: '#27c93f', fontWeight: 'bold' }}>✓ 100% SEO READY</span>
-            </div>
-            <div style={{ fontSize: '0.65rem', color: '#8e95a5' }}>Meta descriptions, titles and Google Maps key integrated</div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>EMI Calculator Uptime</span>
+            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>100% stable</div>
+            <span style={{ fontSize: '0.6rem', color: 'var(--accent-gold)' }}>React calculations instant</span>
           </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+          <div>[1] SSL: Secure socket connection verified (SSL/TLS active)</div>
+          <div>[2] CALC: EMI mathematical formulas computed and loaded in browser</div>
+          <div>[3] SMTP: Lead routing endpoint active for corporate applications</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AuraBlakePreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Sparkles size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">Aura Blake Media Kit System</div>
+            <div className="mock-subtitle">GSAP Scroll pinning &amp; Media Delivery</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>AESTHETICS OK</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>Scroll Animations</span>
+            <div style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>GSAP Triggered</div>
+          </div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>Social API Cache</span>
+            <div style={{ fontSize: '1.2rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>Verified // loaded</div>
+          </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+          <div>[1] GSAP: Pinning sections for luxury scroll slide transition</div>
+          <div>[2] VIDEO: Cinematic background loops streaming successfully</div>
+          <div>[3] MEDIA: Loaded press assets and metrics chart widgets</div>
         </div>
       </div>
     </div>
@@ -499,65 +494,50 @@ const BulkEmailPreview: React.FC = () => {
 };
 
 interface DesktopFrameProps {
-  activeIdx: number;
+  project: Project;
 }
 
-const DesktopFrame: React.FC<DesktopFrameProps> = ({ activeIdx }) => {
-  const urls = [
-    'https://aquasaversolutions.com/',
-    'https://work.w4y.online',
-    'https://os.reachx.world',
-    'https://crm.designstudio16.co.in',
-    'https://github.com/advaitkhangar01/Thermal-Bill-Generator-Local-and-Online-',
-    'https://w4y.online',
-    'https://reachx.world',
-    'https://loftcoworks.com',
-    'https://sdpassociates.co.in',
-    'https://gaearealty.in',
-    'https://jagmart.co.in',
-    'https://github.com/advaitkhangar01/BULK-EMAIL'
-  ];
-
+const DesktopFrame: React.FC<DesktopFrameProps> = ({ project }) => {
   const [viewMode, setViewMode] = useState<'live' | 'console'>('live');
   const [iframeLoading, setIframeLoading] = useState(true);
 
   // Reset iframe loading state when tab or viewMode changes
   useEffect(() => {
     setIframeLoading(true);
-  }, [activeIdx, viewMode]);
+  }, [project.id, viewMode]);
 
   const renderConsoleContent = () => {
-    switch (activeIdx) {
-      case 0:
-        return <AquasaverPreview />;
-      case 1:
+    switch (project.id) {
+      case 'sunrisefarms':
+        return <SunriseFarmsPreview />;
+      case 'w4y-ops':
         return <W4YOpsPreview />;
-      case 2:
+      case 'reachx-os':
         return <ReachXOSPreview />;
-      case 3:
+      case 'ds16-crm':
         return <DS16CRMPreview />;
-      case 4:
+      case 'billbook':
         return <BillBookPreview />;
-      case 5:
-        return <W4YMarketingPreview />;
-      case 6:
-        return <ReachXMarketingPreview />;
-      case 7:
-        return <LoftCoworksPreview />;
-      case 8:
-        return <SDPAssociatesPreview />;
-      case 9:
+      case 'qyvorin':
+        return <QyvorinPreview />;
+      case 'ds16-web':
+        return <DS16WebPreview />;
+      case 'concord':
+        return <ConcordPreview />;
+      case 'aura-blake':
+        return <AuraBlakePreview />;
+      case 'gaearealty':
         return <GaeaRealtyPreview />;
-      case 10:
+      case 'jagmart-grocery':
         return <JagmartGroceryPreview />;
-      case 11:
+      case 'bulk-email':
         return <BulkEmailPreview />;
       default:
         return null;
     }
   };
 
-  const currentUrl = urls[activeIdx];
+  const currentUrl = project.liveUrl;
 
   return (
     <div className="desktop-frame-container">
@@ -603,11 +583,11 @@ const DesktopFrame: React.FC<DesktopFrameProps> = ({ activeIdx }) => {
       <div className="mock-browser-content">
         {viewMode === 'live' ? (
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            {activeIdx === 1 || activeIdx === 2 || activeIdx === 3 ? (
+            {project.id === 'w4y-ops' || project.id === 'reachx-os' || project.id === 'ds16-crm' ? (
               <img 
                 src={
-                  activeIdx === 1 ? '/w4y-dashboard.png' :
-                  activeIdx === 2 ? '/reachx-dashboard.png' :
+                  project.id === 'w4y-ops' ? '/w4y-dashboard.png' :
+                  project.id === 'reachx-os' ? '/reachx-dashboard.png' :
                   '/ds16-dashboard.png'
                 }
                 alt={`Dashboard preview of ${currentUrl}`}
@@ -671,33 +651,37 @@ const DesktopFrame: React.FC<DesktopFrameProps> = ({ activeIdx }) => {
   );
 };
 
-export const ProductMoment: React.FC = () => {
+interface ProductMomentProps {
+  type: 'websites' | 'software';
+}
+
+export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
   const projects: Project[] = [
     {
-      id: 'aquasaver',
-      name: 'Aquasaver Solutions',
-      category: 'Clean Energy & Water Solutions Site',
-      liveUrl: 'https://aquasaversolutions.com/',
+      id: 'sunrisefarms',
+      name: 'Sunrise Farms Nagpur',
+      category: 'Luxury Countryside Farmhouse & Event Venue',
+      liveUrl: 'https://sunrisefarmsnagpur.com',
       metrics: [
-        { value: 'SEO Opt', label: 'Search Indexing Ready' },
-        { value: 'Responsive', label: 'Cross-Device Styling' },
-        { value: 'Modern UI', label: 'Clean Energy Branding' }
+        { value: 'High Speed', label: '99% mobile performance' },
+        { value: 'Lead Gen', label: 'Direct Booking Integration' },
+        { value: 'Immersive', label: 'High-Res Media Galleries' }
       ],
-      problem: 'Eco-friendly water engineering systems need a simple, fast website to convert municipal leads.',
-      chaos: 'Slow loading times on mobile devices caused high bounce rates during active municipal tenders.',
-      transformation: 'Delivered a clean, highly optimized marketing website focusing on water saving metrics and lead generation.',
-      result: 'Improved lead response times and provided a solid, fast digital presence for water purification systems.',
-      techStack: ['HTML5', 'CSS3', 'JavaScript', 'Vite', 'SEO Optimization'],
-      architecture: 'Lightweight static delivery layers maximizing Google Lighthouse speed scores.',
+      problem: 'A premium 9-acre countryside retreat struggled to convert high-end private bookings and event inquiries due to a slow, outdated web presence.',
+      chaos: 'Potential guests looking for premium event venues dropped off during image loading, resulting in lost weekend villa rentals.',
+      transformation: 'Designed and launched a blazing-fast, visually stunning marketing website with integrated WhatsApp bookings and high-resolution photo galleries.',
+      result: 'Significantly increased venue rental inquiries and created a premium online presence matching the physical luxury of the property.',
+      techStack: ['React', 'Vite', 'Vanilla CSS', 'Framer Motion', 'SEO Optimization'],
+      architecture: 'Component-driven static site generation (SSG) with optimized image assets and smooth routing.',
       mockupData: {
-        title: 'AQUASAVER-CORE-VALIDATOR',
-        status: 'ACTIVE // SYNCED',
+        title: 'SUNRISE-FARMS-TELEMETRY',
+        status: 'SYSTEM RUNNING',
         logs: [
-          'SYS_INIT: Aquasaver optimizer database active',
-          'TDS: Check completed ... index safe',
-          'VALVE: Auto pressure regulator status stable'
+          'MEDIA: Optimizing image rendering pipes',
+          'API: Booking integration online',
+          'SEO: Google Search Console indexed'
         ],
-        chartValues: [35, 52, 60, 48, 85, 70, 95]
+        chartValues: [85, 90, 88, 92, 95, 93, 98]
       }
     },
     {
@@ -809,111 +793,111 @@ export const ProductMoment: React.FC = () => {
       }
     },
     {
-      id: 'w4y-web',
-      name: 'W4Y B2B SaaS Website',
-      category: 'Premium Interactive SaaS Marketing Site',
-      liveUrl: 'https://w4y.online',
+      id: 'qyvorin',
+      name: 'Qyvorin',
+      category: 'Next-Gen Web, AI & CRM Agency',
+      liveUrl: 'https://www.qyvorin.online/',
       metrics: [
-        { value: '3D WebGL', label: 'Hero Experience' },
-        { value: 'GSAP Pinned', label: 'Split-Screen Console' },
-        { value: 'Interactive', label: 'ROI & Geofencing Demos' }
+        { value: 'Modern UI', label: 'Glassmorphic Aesthetics' },
+        { value: 'AI Showcase', label: 'Interactive Telemetry' },
+        { value: 'Lighthouse', label: '98+ Performance Score' }
       ],
-      problem: 'B2B software tools look dry on standard layouts, failing to show the advanced power of geofencing and automation.',
-      chaos: 'Prospective clients struggled to visualize GPS geofencing, leading to longer sales loops and higher bounce rates.',
-      transformation: 'Designed a premium marketing site with WebGL hero animations, scroll-pinned case studies, and live geofencing sandbox simulations.',
-      result: 'Allowed prospects to test geofencing boundaries live in-browser, boosting demo conversion rates.',
-      techStack: ['HTML5', 'Vanilla CSS', 'Three.js', 'GSAP', 'ScrollTrigger', 'Lenis', 'Vite', 'Vercel'],
-      architecture: 'Highly optimized Canvas renders running smooth GPU shaders alongside GSAP scroll-pinned layouts.',
+      problem: 'A growing digital agency needed a high-fidelity web platform that demonstrates their advanced expertise in custom software, AI assistants, and CRM integrations.',
+      chaos: 'Standard template sites failed to showcase the agency\'s high-tech capability, leading to generic client inquiries.',
+      transformation: 'Engineered an ultra-premium, dark-themed agency landing page with custom CSS micro-animations, glassmorphic design systems, and responsive layouts.',
+      result: 'Created a highly professional digital hub that successfully captures corporate enterprise leads and showcases technical superiority.',
+      techStack: ['TypeScript', 'React', 'GSAP', 'Vanilla CSS', 'Vercel'],
+      architecture: 'Highly optimized rendering loop running fluid CSS transitions and dynamic viewport scaling.',
       mockupData: {
-        title: 'W4Y-MARKETING-SANDBOX',
-        status: 'ACTIVE // SECURE',
-        logs: [
-          'ThreeJS: WebGL Canvas initialization complete',
-          'GSAP: Timeline bound to Lenis scroll',
-          'SHIELD: 15-day audit simulator validated'
-        ],
-        chartValues: [45, 68, 54, 89, 75, 95, 98]
-      }
-    },
-    {
-      id: 'reachx-web',
-      name: 'ReachX Marketing Platform',
-      category: 'Ultra-Premium SPA & Shaders',
-      liveUrl: 'https://reachx.world',
-      metrics: [
-        { value: 'WebGL', label: 'Fragment Shaders' },
-        { value: 'Framer 12', label: 'Scroll Animations' },
-        { value: 'SPA', label: 'Zero-Lag Page Swapping' }
-      ],
-      problem: 'A standard corporate landing page failed to reflect the tech-forward, high-speed capabilities of the ReachX operations suite.',
-      chaos: 'A slow landing page with high page-load latency diminished marketing conversions during social media campaigns.',
-      transformation: 'Engineered an ultra-premium SPA with custom WebGL fragment shaders, Framer Motion scroll states, and SVG dashboards.',
-      result: 'Delivered an extremely fast, modern landing page with average load times under 0.6 seconds.',
-      techStack: ['Next.js 16', 'TypeScript', 'Framer Motion 12', 'Three.js (WebGL)', 'Lenis', 'Zod'],
-      architecture: 'Declarative animation nodes bound to high-performance smooth-scroll frames.',
-      mockupData: {
-        title: 'REACHX-WEBGL-SHADERS',
+        title: 'QYVORIN-AGENCY-CONSOLE',
         status: 'MONITORING // ACTIVE',
         logs: [
-          'SHADER: Fragment uniforms compiled (u_time)',
-          'ZOD: Auth registration validations passed',
-          'SVG: Live telemetry dashboard charts active'
+          'UI: Initializing glassmorphic theme layers',
+          'AI: Custom agent integration active',
+          'STATS: User session telemetry recording'
         ],
-        chartValues: [99, 99, 100, 99, 100, 99, 100]
+        chartValues: [90, 92, 95, 91, 96, 94, 99]
       }
     },
     {
-      id: 'loftcoworks',
-      name: 'Loft Coworks Website',
-      category: 'Coworking Space Portal',
-      liveUrl: 'https://loftcoworks.com',
+      id: 'ds16-web',
+      name: 'Design Studio 16',
+      category: 'Premium Architecture & Interior Design Site',
+      liveUrl: 'https://designstudio16.co.in/',
       metrics: [
-        { value: 'Next.js App', label: 'App Router Framework' },
-        { value: 'Tailwind v4', label: 'Modern CSS Compiling' },
-        { value: 'SMTP Mail', label: 'Nodemailer Integrations' }
+        { value: 'Immersive', label: 'High-Fidelity Portfolio Grid' },
+        { value: 'Speed', label: 'Sub-Second Asset Loading' },
+        { value: 'Responsive', label: 'Cross-Device CSS Flexbox' }
       ],
-      problem: 'The workspace booking process required phone confirmation, causing dropouts during off-hours.',
-      chaos: 'Admin staff spent hours weekly replying to availability queries and manually booking meeting rooms.',
-      transformation: 'Built a Next.js App Router website featuring SSG blog routes, animated booking drawers, and automated SMTP notifications.',
-      result: 'Increased off-hour booking requests by 40% and automated the client lead notification process.',
-      techStack: ['Next.js 16.2', 'TypeScript 5', 'Tailwind CSS v4', 'Framer Motion 12', 'Nodemailer'],
-      architecture: 'Statically generated pages (SSG) connected to API routing endpoints for lead ingestion.',
+      problem: 'A top architecture firm wanted to showcase their extensive portfolio of residential and commercial blueprints without slow page loads.',
+      chaos: 'Heavy architectural rendering files caused page delays, causing corporate clients to exit before viewing full portfolios.',
+      transformation: 'Developed a fast, component-driven portfolio site with lazy-loading image pipelines, clean grid layouts, and direct lead capture.',
+      result: 'Reduced portfolio page load times by over 70%, boosting client conversion rates and showcasing architectural elegance.',
+      techStack: ['HTML5', 'Vanilla CSS', 'JavaScript', 'Image Optimizer Script'],
+      architecture: 'Static layout distribution with modular, framework-free web components.',
       mockupData: {
-        title: 'LOFTCOWORKS-SMTP-SYNC',
+        title: 'DS16-PORTFOLIO-VALIDATOR',
         status: 'ACTIVE // SYNCED',
         logs: [
-          'SMTP: Nodemailer lead auto-dispatch completed',
-          'SSG: Meeting room blog generated static page',
-          'ACCESS: Cowork check-in validation check completed'
+          'IMAGE: WebP compression checks complete',
+          'GRID: Responsive layout rules active',
+          'MAPS: Location API loading success'
         ],
-        chartValues: [50, 65, 88, 72, 90, 80, 95]
+        chartValues: [75, 80, 85, 82, 89, 92, 96]
       }
     },
     {
-      id: 'sdp-associates',
-      name: 'SDP Associates Website',
-      category: 'Static Corporate Portal',
-      liveUrl: 'https://sdpassociates.co.in',
+      id: 'concord',
+      name: 'Concord Fintech',
+      category: 'Corporate Financial Advising & Loan Portal',
+      liveUrl: 'https://concordfintech.com/',
       metrics: [
-        { value: '31 Pages', label: 'Static Site Architecture' },
-        { value: '~80% Less', label: 'Code Maintenance Effort' },
-        { value: 'No Framework', label: 'Zero Package Lock' }
+        { value: 'Fintech Core', label: 'Secure Client Ingestion' },
+        { value: 'Calculators', label: 'Interactive EMI Engines' },
+        { value: 'SEO Rank', label: 'Indexed Business Keywords' }
       ],
-      problem: 'A 20-year-old construction firm needed a large 31-page website, but updating headers and footers across static files was tedious.',
-      chaos: 'Traditional CMS sites loading slow scripts decreased SEO rankings, and manual code updates across 31 HTML files led to syntax bugs.',
-      transformation: 'Engineered a static site with zero external UI framework dependencies, using a custom Node.js script to inject shared HTML components.',
-      result: 'Reduced maintenance effort by 80% while preserving ultra-fast page load times and maximum SEO search rankings.',
-      techStack: ['HTML5', 'Vanilla CSS3', 'Vanilla JavaScript (ES6+)', 'Node.js scripting', 'Google Maps API'],
-      architecture: 'A static HTML compile script injecting shared headers/footers into the build folder prior to distribution.',
+      problem: 'A financial advisory firm needed a secure, professional landing page to process corporate loan applications and attract startup founders.',
+      chaos: 'Clunky intake forms and lack of transparent EMI metrics caused potential loan leads to seek help elsewhere.',
+      transformation: 'Engineered a secure corporate portal with custom financial calculators, secure contact modules, and structured service showcases.',
+      result: 'Improved startup lead acquisition and automated first-stage business loan inquiries.',
+      techStack: ['React', 'TypeScript', 'Node.js', 'Tailwind CSS', 'SMTP Mailer'],
+      architecture: 'Serverless form submission pipeline connected to structured client email notifications.',
       mockupData: {
-        title: 'SDP-INJECTOR-SCRIPT',
-        status: 'ONLINE // PARSING',
+        title: 'CONCORD-FINTECH-METRICS',
+        status: 'SECURE ACTIVE',
         logs: [
-          'NODE: Propagated layout scripts into templates',
-          'SEO: Canonical search headers verified complete',
-          'MAPS: Maps API auth signature verified status ok'
+          'SSL: 256-bit encryption verified',
+          'CALC: EMI calculation module tested',
+          'LEAD: Form verification triggers online'
         ],
-        chartValues: [30, 48, 65, 78, 85, 90, 99]
+        chartValues: [65, 75, 82, 88, 85, 90, 95]
+      }
+    },
+    {
+      id: 'aura-blake',
+      name: 'Aura Blake Portfolio',
+      category: 'Cinematic Influencer Portfolio & Media Kit',
+      liveUrl: 'https://influencer-zeta-six.vercel.app/',
+      metrics: [
+        { value: 'Aesthetics', label: 'Editorial Fashion Design' },
+        { value: 'Media Kit', label: 'Live Social Stat Syncing' },
+        { value: 'Cinematic', label: 'GSAP Smooth Pinned Slides' }
+      ],
+      problem: 'A fashion and lifestyle influencer needed a premium digital media kit to pitch high-converting campaigns to luxury brands.',
+      chaos: 'Standard PDF media kits became outdated quickly and failed to showcase dynamic video content and design aesthetics.',
+      transformation: 'Built a cinematic web portfolio with GSAP animations, editorial typography, and high-impact brand collaboration galleries.',
+      result: 'Delivered a jaw-dropping web portfolio that replaces static PDFs and converts brand deals automatically.',
+      techStack: ['React', 'Vite', 'GSAP', 'Framer Motion', 'Vanilla CSS'],
+      architecture: 'Declarative animation trees running smooth parallax scrolls and media overlays.',
+      mockupData: {
+        title: 'AURA-BLAKE-PORTFOLIO-CORE',
+        status: 'MONITORING // ACTIVE',
+        logs: [
+          'GSAP: ScrollTrigger layout active',
+          'MEDIA: Cinematic video loop active',
+          'SOCIAL: Live stats cache verified'
+        ],
+        chartValues: [80, 85, 90, 88, 92, 96, 99]
       }
     },
     {
@@ -1000,7 +984,16 @@ export const ProductMoment: React.FC = () => {
   ];
 
   const [activeIdx, setActiveIdx] = useState(0);
-  const current = projects[activeIdx];
+
+  const filteredProjects = projects.filter(p => {
+    if (type === 'websites') {
+      return ['sunrisefarms', 'qyvorin', 'ds16-web', 'concord', 'aura-blake'].includes(p.id);
+    } else {
+      return ['w4y-ops', 'reachx-os', 'ds16-crm', 'billbook', 'gaearealty', 'jagmart-grocery', 'bulk-email'].includes(p.id);
+    }
+  });
+
+  const current = filteredProjects[activeIdx] || filteredProjects[0];
 
   return (
     <section className="moment-section product-moment-section" style={{ position: 'relative', zIndex: 3, background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(12px)', borderTop: '1px solid var(--border-light)' }}>
@@ -1008,14 +1001,29 @@ export const ProductMoment: React.FC = () => {
         
         {/* Editorial Heading */}
         <div style={{ marginBottom: 'var(--heading-to-content-gap)' }}>
-          <div className="editorial-label gsap-reveal-scramble" data-type-speed={30}>FEATURED SOFTWARE SHOWCASE</div>
-          <h2 className="editorial-title-medium gsap-reveal-fade-up" style={{ fontWeight: 400 }}>
-            Custom Business Software <br />
-            <span className="gsap-reveal-block" style={{ color: 'var(--accent-gold)' }}>Built to Automate &amp; Scale.</span>
-          </h2>
-          <p className="editorial-text gsap-reveal-fade-up">
-            These are not simple static websites. These are highly secure, custom-built software systems designed to solve your operational bottlenecks, automate manual work, and grow your business capacity.
-          </p>
+          {type === 'websites' ? (
+            <>
+              <div className="editorial-label gsap-reveal-scramble" data-type-speed={30}>FEATURED PORTFOLIO PROJECTS</div>
+              <h2 className="editorial-title-medium gsap-reveal-fade-up" style={{ fontWeight: 400 }}>
+                Premium Websites &amp; <br />
+                <span className="gsap-reveal-block" style={{ color: 'var(--accent-gold)' }}>Interactive SPAs.</span>
+              </h2>
+              <p className="editorial-text gsap-reveal-fade-up">
+                These are fast, responsive, and beautifully interactive websites built using modern front-end technologies, WebGL, and elegant animations to make your brand stand out online.
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="editorial-label gsap-reveal-scramble" data-type-speed={30}>CUSTOM SOFTWARE SHOWCASE</div>
+              <h2 className="editorial-title-medium gsap-reveal-fade-up" style={{ fontWeight: 400 }}>
+                Custom Business Software <br />
+                <span className="gsap-reveal-block" style={{ color: 'var(--accent-gold)' }}>Built to Automate &amp; Scale.</span>
+              </h2>
+              <p className="editorial-text gsap-reveal-fade-up">
+                These are not simple static websites. These are highly secure, custom-built software systems designed to solve your operational bottlenecks, automate manual work, and grow your business capacity.
+              </p>
+            </>
+          )}
         </div>
 
         {/* 12 Systems System Navigation */}
@@ -1027,7 +1035,7 @@ export const ProductMoment: React.FC = () => {
           paddingBottom: '16px',
           gap: '16px'
         }} className="gsap-reveal-fade-up">
-          {projects.map((p, idx) => (
+          {filteredProjects.map((p, idx) => (
             <button
               key={p.id}
               onClick={() => setActiveIdx(idx)}
@@ -1138,7 +1146,7 @@ export const ProductMoment: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }} className="gsap-reveal-fade-up">
             
             {/* Real-world Live Desktop Preview Container */}
-            <DesktopFrame activeIdx={activeIdx} />
+            <DesktopFrame project={current} />
 
             {/* Performance Stats Panel */}
             <div style={{
