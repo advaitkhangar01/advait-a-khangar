@@ -1313,16 +1313,20 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
 
   const [activeIdx, setActiveIdx] = useState(0);
 
-  const filteredProjects = projects.filter(p => {
-    if (type === 'websites') {
-      return [
-        'aquasaver', 'w4y-web', 'reachx-web', 'loftcoworks', 'sdp-associates',
-        'sunrisefarms', 'qyvorin', 'ds16-web', 'concord', 'aura-blake'
-      ].includes(p.id);
-    } else {
-      return ['w4y-ops', 'reachx-os', 'ds16-crm', 'billbook', 'gaearealty', 'jagmart-grocery', 'bulk-email'].includes(p.id);
-    }
-  });
+  const filteredProjects = type === 'websites'
+    ? [
+        'loftcoworks',
+        'sunrisefarms',
+        'qyvorin',
+        'w4y-web',
+        'sdp-associates',
+        'ds16-web',
+        'reachx-web',
+        'aquasaver',
+        'concord',
+        'aura-blake'
+      ].map(id => projects.find(p => p.id === id)).filter(Boolean) as Project[]
+    : projects.filter(p => ['w4y-ops', 'reachx-os', 'ds16-crm', 'billbook', 'gaearealty', 'jagmart-grocery', 'bulk-email'].includes(p.id));
 
   const current = filteredProjects[activeIdx] || filteredProjects[0];
 
