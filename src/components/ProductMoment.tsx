@@ -493,6 +493,189 @@ const BulkEmailPreview: React.FC = () => {
   );
 };
 
+const AquasaverPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Activity size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">Aquasaver Core Validator</div>
+            <div className="mock-subtitle">Water Saving &amp; Purification Optimization Metrics</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>SYSTEM ACTIVE</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', flexGrow: 1 }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Flow Optimization</span>
+            <div style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 'bold' }}>14.2 L/sec</div>
+            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>Pressure valve within bounds</span>
+          </div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '14px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Filter Efficiency</span>
+            <div style={{ fontSize: '1.25rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>99.8% TDS</div>
+            <span style={{ fontSize: '0.65rem', color: 'var(--accent-gold)' }}>Purification active</span>
+          </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+          <div>[1] SENSOR: Flow rate sensor online (14.2 L/sec)</div>
+          <div>[2] PURITY: Filter efficiency at 99.8% (TDS: 42)</div>
+          <div>[3] VALVE: Automated pressure regulation ... stable</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const W4YMarketingPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Sliders size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">W4Y Interactive Sandbox</div>
+            <div className="mock-subtitle">Three.js WebGL &amp; GSAP Scroll Pinner</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>GPU SHADER ACCELERATED</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>WebGL Frame Rate</span>
+            <div style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>144 FPS</div>
+          </div>
+          <div className="mock-gateway-card" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>GSAP Pinning State</span>
+            <div style={{ fontSize: '1.2rem', color: 'var(--accent-gold)', fontWeight: 'bold' }}>Locked // active</div>
+          </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '90px' }}>
+          <div>[1] ThreeJS: Initializing WebGL canvas layer</div>
+          <div>[2] GSAP: Pinned timeline bound to Lenis scroll controller</div>
+          <div>[3] SHIELD: Audit tracker active (15-day secure loop)</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ReachXMarketingPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Sparkles size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">ReachX Marketing SPA Simulator</div>
+            <div className="mock-subtitle">Next.js &amp; Framer Motion 12 Scroll States</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>ZOD VALIDATED</span>
+        </div>
+        <div className="mock-receptionist-grid">
+          <div className="mock-voice-visualizer" style={{ padding: '10px' }}>
+            <div className="mock-voice-pulse" style={{ height: '40px' }}>
+              <span className="mock-voice-bar"></span>
+              <span className="mock-voice-bar"></span>
+              <span className="mock-voice-bar"></span>
+              <span className="mock-voice-bar"></span>
+              <span className="mock-voice-bar"></span>
+              <span className="mock-voice-bar"></span>
+            </div>
+            <span style={{ fontSize: '0.65rem', color: '#8e95a5', fontWeight: 'bold' }}>Shader Pulses</span>
+          </div>
+          <div className="mock-ledger-log" style={{ maxHeight: '110px' }}>
+            <div>[1] SHADER: Uniform variables compiled (u_time: 489.2)</div>
+            <div>[2] ZOD: Form input verification passed (email, phone)</div>
+            <div>[3] SVG: Rendering live telemetry chart nodes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const LoftCoworksPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Users size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">Loft Coworks Portal</div>
+            <div className="mock-subtitle">Next.js App Router Workspace Booking</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: '#27C93F', background: 'rgba(39, 201, 63, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>SMTP CONNECTED</span>
+        </div>
+        <div className="mock-gateway-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+          <div className="mock-gateway-card" style={{ padding: '12px' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Hot Desk #42</span>
+            <div className="mock-status-glow green"></div>
+            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>OCCUPIED // LIVE</span>
+          </div>
+          <div className="mock-gateway-card" style={{ padding: '12px' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>Booking Drawer</span>
+            <div className="mock-status-glow green"></div>
+            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>ACTIVE // OPENED</span>
+          </div>
+          <div className="mock-gateway-card" style={{ padding: '12px' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8e95a5', fontWeight: 'bold' }}>SSG Blog compiled</span>
+            <div className="mock-status-glow green"></div>
+            <span style={{ fontSize: '0.65rem', color: '#27c93f' }}>GENERATE OK</span>
+          </div>
+        </div>
+        <div className="mock-ledger-log" style={{ maxHeight: '100px' }}>
+          <div>[1] SMTP: Booking inquiry email queued ... sent via Nodemailer</div>
+          <div>[2] SSG: Blog route compile (Static Site Generation)</div>
+          <div>[3] ACCESS: Member space check-in completed</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SDPAssociatesPreview: React.FC = () => {
+  return (
+    <div className="mock-dashboard-wrapper">
+      <div className="mock-sidebar">
+        <div className="mock-sidebar-icon active"><Terminal size={18} /></div>
+      </div>
+      <div className="mock-main-content">
+        <div className="mock-content-header">
+          <div>
+            <div className="mock-title">SDP Component Injector</div>
+            <div className="mock-subtitle">Static Site Injection Script &amp; SEO Checks</div>
+          </div>
+          <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', background: 'rgba(201, 162, 39, 0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>31 PAGES STATIC</span>
+        </div>
+        <div className="mock-transcode-container">
+          <div className="mock-transcode-row" style={{ padding: '8px 12px' }}>
+            <div className="mock-transcode-meta">
+              <span style={{ fontWeight: 600, color: '#fff' }}>Component Injection</span>
+              <span style={{ color: '#27c93f', fontWeight: 'bold' }}>✓ SUCCESS</span>
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#8e95a5' }}>Headers/footers propagated into static HTML templates</div>
+          </div>
+          <div className="mock-transcode-row" style={{ padding: '8px 12px' }}>
+            <div className="mock-transcode-meta">
+              <span style={{ fontWeight: 600, color: '#fff' }}>SEO Audit validation</span>
+              <span style={{ color: '#27c93f', fontWeight: 'bold' }}>✓ 100% SEO READY</span>
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#8e95a5' }}>Meta descriptions, titles and Google Maps key integrated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 interface DesktopFrameProps {
   project: Project;
 }
@@ -508,8 +691,8 @@ const DesktopFrame: React.FC<DesktopFrameProps> = ({ project }) => {
 
   const renderConsoleContent = () => {
     switch (project.id) {
-      case 'sunrisefarms':
-        return <SunriseFarmsPreview />;
+      case 'aquasaver':
+        return <AquasaverPreview />;
       case 'w4y-ops':
         return <W4YOpsPreview />;
       case 'reachx-os':
@@ -518,6 +701,16 @@ const DesktopFrame: React.FC<DesktopFrameProps> = ({ project }) => {
         return <DS16CRMPreview />;
       case 'billbook':
         return <BillBookPreview />;
+      case 'w4y-web':
+        return <W4YMarketingPreview />;
+      case 'reachx-web':
+        return <ReachXMarketingPreview />;
+      case 'loftcoworks':
+        return <LoftCoworksPreview />;
+      case 'sdp-associates':
+        return <SDPAssociatesPreview />;
+      case 'sunrisefarms':
+        return <SunriseFarmsPreview />;
       case 'qyvorin':
         return <QyvorinPreview />;
       case 'ds16-web':
@@ -657,6 +850,141 @@ interface ProductMomentProps {
 
 export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
   const projects: Project[] = [
+    {
+      id: 'aquasaver',
+      name: 'Aquasaver Solutions',
+      category: 'Clean Energy & Water Solutions Site',
+      liveUrl: 'https://aquasaversolutions.com/',
+      metrics: [
+        { value: 'SEO Opt', label: 'Search Indexing Ready' },
+        { value: 'Responsive', label: 'Cross-Device Styling' },
+        { value: 'Modern UI', label: 'Clean Energy Branding' }
+      ],
+      problem: 'Eco-friendly water engineering systems need a simple, fast website to convert municipal leads.',
+      chaos: 'Slow loading times on mobile devices caused high bounce rates during active municipal tenders.',
+      transformation: 'Delivered a clean, highly optimized marketing website focusing on water saving metrics and lead generation.',
+      result: 'Improved lead response times and provided a solid, fast digital presence for water purification systems.',
+      techStack: ['HTML5', 'CSS3', 'JavaScript', 'Vite', 'SEO Optimization'],
+      architecture: 'Lightweight static delivery layers maximizing Google Lighthouse speed scores.',
+      mockupData: {
+        title: 'AQUASAVER-CORE-VALIDATOR',
+        status: 'ACTIVE // SYNCED',
+        logs: [
+          'SYS_INIT: Aquasaver optimizer database active',
+          'TDS: Check completed ... index safe',
+          'VALVE: Auto pressure regulator status stable'
+        ],
+        chartValues: [35, 52, 60, 48, 85, 70, 95]
+      }
+    },
+    {
+      id: 'w4y-web',
+      name: 'W4Y B2B SaaS Website',
+      category: 'Premium Interactive SaaS Marketing Site',
+      liveUrl: 'https://w4y.online',
+      metrics: [
+        { value: '3D WebGL', label: 'Hero Experience' },
+        { value: 'GSAP Pinned', label: 'Split-Screen Console' },
+        { value: 'Interactive', label: 'ROI & Geofencing Demos' }
+      ],
+      problem: 'B2B software tools look dry on standard layouts, failing to show the advanced power of geofencing and automation.',
+      chaos: 'Prospective clients struggled to visualize GPS geofencing, leading to longer sales loops and higher bounce rates.',
+      transformation: 'Designed a premium marketing site with WebGL hero animations, scroll-pinned case studies, and live geofencing sandbox simulations.',
+      result: 'Allowed prospects to test geofencing boundaries live in-browser, boosting demo conversion rates.',
+      techStack: ['HTML5', 'Vanilla CSS', 'Three.js', 'GSAP', 'ScrollTrigger', 'Lenis', 'Vite', 'Vercel'],
+      architecture: 'Highly optimized Canvas renders running smooth GPU shaders alongside GSAP scroll-pinned layouts.',
+      mockupData: {
+        title: 'W4Y-MARKETING-SANDBOX',
+        status: 'ACTIVE // SECURE',
+        logs: [
+          'ThreeJS: WebGL Canvas initialization complete',
+          'GSAP: Timeline bound to Lenis scroll',
+          'SHIELD: 15-day audit simulator validated'
+        ],
+        chartValues: [45, 68, 54, 89, 75, 95, 98]
+      }
+    },
+    {
+      id: 'reachx-web',
+      name: 'ReachX Marketing Platform',
+      category: 'Ultra-Premium SPA & Shaders',
+      liveUrl: 'https://reachx.world',
+      metrics: [
+        { value: 'WebGL', label: 'Fragment Shaders' },
+        { value: 'Framer 12', label: 'Scroll Animations' },
+        { value: 'SPA', label: 'Zero-Lag Page Swapping' }
+      ],
+      problem: 'A standard corporate landing page failed to reflect the tech-forward, high-speed capabilities of the ReachX operations suite.',
+      chaos: 'A slow landing page with high page-load latency diminished marketing conversions during social media campaigns.',
+      transformation: 'Engineered an ultra-premium SPA with custom WebGL fragment shaders, Framer Motion scroll states, and SVG dashboards.',
+      result: 'Delivered an extremely fast, modern landing page with average load times under 0.6 seconds.',
+      techStack: ['Next.js 16', 'TypeScript', 'Framer Motion 12', 'Three.js (WebGL)', 'Lenis', 'Zod'],
+      architecture: 'Declarative animation nodes bound to high-performance smooth-scroll frames.',
+      mockupData: {
+        title: 'REACHX-WEBGL-SHADERS',
+        status: 'MONITORING // ACTIVE',
+        logs: [
+          'SHADER: Fragment uniforms compiled (u_time)',
+          'ZOD: Auth registration validations passed',
+          'SVG: Live telemetry dashboard charts active'
+        ],
+        chartValues: [99, 99, 100, 99, 100, 99, 100]
+      }
+    },
+    {
+      id: 'loftcoworks',
+      name: 'Loft Coworks Website',
+      category: 'Coworking Space Portal',
+      liveUrl: 'https://loftcoworks.com',
+      metrics: [
+        { value: 'Next.js App', label: 'App Router Framework' },
+        { value: 'Tailwind v4', label: 'Modern CSS Compiling' },
+        { value: 'SMTP Mail', label: 'Nodemailer Integrations' }
+      ],
+      problem: 'The workspace booking process required phone confirmation, causing dropouts during off-hours.',
+      chaos: 'Admin staff spent hours weekly replying to availability queries and manually booking meeting rooms.',
+      transformation: 'Built a Next.js App Router website featuring SSG blog routes, animated booking drawers, and automated SMTP notifications.',
+      result: 'Increased off-hour booking requests by 40% and automated the client lead notification process.',
+      techStack: ['Next.js 16.2', 'TypeScript 5', 'Tailwind CSS v4', 'Framer Motion 12', 'Nodemailer'],
+      architecture: 'Statically generated pages (SSG) connected to API routing endpoints for lead ingestion.',
+      mockupData: {
+        title: 'LOFTCOWORKS-SMTP-SYNC',
+        status: 'ACTIVE // SYNCED',
+        logs: [
+          'SMTP: Nodemailer lead auto-dispatch completed',
+          'SSG: Meeting room blog generated static page',
+          'ACCESS: Cowork check-in validation check completed'
+        ],
+        chartValues: [50, 65, 88, 72, 90, 80, 95]
+      }
+    },
+    {
+      id: 'sdp-associates',
+      name: 'SDP Associates Website',
+      category: 'Static Corporate Portal',
+      liveUrl: 'https://sdpassociates.co.in',
+      metrics: [
+        { value: '31 Pages', label: 'Static Site Architecture' },
+        { value: '~80% Less', label: 'Code Maintenance Effort' },
+        { value: 'No Framework', label: 'Zero Package Lock' }
+      ],
+      problem: 'A 20-year-old construction firm needed a large 31-page website, but updating headers and footers across static files was tedious.',
+      chaos: 'Traditional CMS sites loading slow scripts decreased SEO rankings, and manual code updates across 31 HTML files led to syntax bugs.',
+      transformation: 'Engineered a static site with zero external UI framework dependencies, using a custom Node.js script to inject shared HTML components.',
+      result: 'Reduced maintenance effort by 80% while preserving ultra-fast page load times and maximum SEO search rankings.',
+      techStack: ['HTML5', 'Vanilla CSS3', 'Vanilla JavaScript (ES6+)', 'Node.js scripting', 'Google Maps API'],
+      architecture: 'A static HTML compile script injecting shared headers/footers into the build folder prior to distribution.',
+      mockupData: {
+        title: 'SDP-INJECTOR-SCRIPT',
+        status: 'ONLINE // PARSING',
+        logs: [
+          'NODE: Propagated layout scripts into templates',
+          'SEO: Canonical search headers verified complete',
+          'MAPS: Maps API auth signature verified status ok'
+        ],
+        chartValues: [30, 48, 65, 78, 85, 90, 99]
+      }
+    },
     {
       id: 'sunrisefarms',
       name: 'Sunrise Farms Nagpur',
@@ -987,7 +1315,10 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
 
   const filteredProjects = projects.filter(p => {
     if (type === 'websites') {
-      return ['sunrisefarms', 'qyvorin', 'ds16-web', 'concord', 'aura-blake'].includes(p.id);
+      return [
+        'aquasaver', 'w4y-web', 'reachx-web', 'loftcoworks', 'sdp-associates',
+        'sunrisefarms', 'qyvorin', 'ds16-web', 'concord', 'aura-blake'
+      ].includes(p.id);
     } else {
       return ['w4y-ops', 'reachx-os', 'ds16-crm', 'billbook', 'gaearealty', 'jagmart-grocery', 'bulk-email'].includes(p.id);
     }
