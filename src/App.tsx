@@ -6,6 +6,7 @@ import { ArrowUpRight, Palette, Menu, X } from 'lucide-react';
 import LogoIcon from './components/LogoIcon';
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 import SystemCore from './components/SystemCore';
 import HeroMoment from './components/HeroMoment';
 import StoryMoment from './components/StoryMoment';
@@ -37,6 +38,12 @@ export const App: React.FC = () => {
   const [theme, setTheme] = useState<string>(() => localStorage.getItem('advait-portfolio-theme') || 'gold');
   const [isPreloaded, setIsPreloaded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // States and refs for Scroll and Header elegance
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const lastScrollY = useRef(0);
+  const isNavigatingRef = useRef(false);
 
   useEffect(() => {
     const selectedTheme = themes.find(t => t.id === theme) || themes[0];
@@ -45,6 +52,51 @@ export const App: React.FC = () => {
     document.documentElement.style.setProperty('--accent-gold-text', selectedTheme.textColor);
     document.documentElement.style.setProperty('--accent-glow', selectedTheme.glowColor);
   }, [theme]);
+
+  // Handle Smart Scroll and Dynamic Header tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Update scroll progress percentage
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = (currentScrollY / totalHeight) * 100;
+        setScrollProgress(progress);
+      }
+
+      // Skip header toggling if we are scrolling via nav links clicks
+      if (isNavigatingRef.current) {
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Keep header visible when mobile drawer is open
+      if (isMobileMenuOpen) {
+        setIsHeaderVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY <= 50) {
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY.current + 10) {
+        // Scroll down: Hide header
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY.current - 10) {
+        // Scroll up: Reveal header
+        setIsHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial run to set state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobileMenuOpen]);
+
   const lenisRef = useRef<Lenis | null>(null);
 
   // Custom Cursor Positions
@@ -62,11 +114,20 @@ export const App: React.FC = () => {
 
   // 1. Lenis Smooth Scroll Initialization with RAF cancel fix to prevent memory leaks
   useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) {
+      // Lock scroll natively during preload
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.6, // Buttery soft slow-out
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Premium slow out
       infinite: false,
-      gestureOrientation: 'vertical'
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.90 // Dampen mechanical scroll clicks
     });
 
     lenisRef.current = lenis;
@@ -93,6 +154,13 @@ export const App: React.FC = () => {
       } else {
         lenisRef.current.stop();
       }
+    } else {
+      // Native scroll lock coordinate for touch/mobile
+      if (isPreloaded) {
+        document.body.style.overflow = '';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
     }
   }, [isPreloaded]);
 
@@ -107,7 +175,8 @@ export const App: React.FC = () => {
       duration: 1.2,
       y: 0,
       opacity: 1,
-      ease: 'power3.out'
+      ease: 'power3.out',
+      clearProps: 'transform,opacity'
     });
 
     // B. Typographic Lines slide up stagger
@@ -129,6 +198,7 @@ export const App: React.FC = () => {
   };
 
   // 2. Custom Spring Cursor Implementation
+  // 2. Custom Spring Cursor Implementation (GPU-Accelerated)
   useEffect(() => {
     const dot = cursorDotRef.current;
     const ring = cursorRingRef.current;
@@ -146,20 +216,26 @@ export const App: React.FC = () => {
     let mouseY = 0;
     let ringX = 0;
     let ringY = 0;
+    let hasMoved = false;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      dot.style.left = `${mouseX}px`;
-      dot.style.top = `${mouseY}px`;
+      
+      if (!hasMoved) {
+        hasMoved = true;
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
+      }
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
     };
 
     const animateRing = () => {
       // Damped spring following
       ringX += (mouseX - ringX) * 0.15;
       ringY += (mouseY - ringY) * 0.15;
-      ring.style.left = `${ringX}px`;
-      ring.style.top = `${ringY}px`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
       requestAnimationFrame(animateRing);
     };
 
@@ -221,11 +297,11 @@ export const App: React.FC = () => {
       const fadeUpElements = gsap.utils.toArray('.gsap-reveal-fade-up') as HTMLElement[];
       fadeUpElements.forEach((el) => {
         gsap.fromTo(el, 
-          { opacity: 0, y: 35 }, 
+          { opacity: 0, y: 40 }, 
           { 
             opacity: 1, 
             y: 0, 
-            duration: 1.2, 
+            duration: 1.4, 
             ease: 'power3.out', 
             scrollTrigger: {
               trigger: el,
@@ -402,8 +478,32 @@ export const App: React.FC = () => {
   }, [isPreloaded]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
-    if (lenisRef.current && ref.current) {
-      lenisRef.current.scrollTo(ref.current, { offset: -80, duration: 1.6 });
+    if (ref.current) {
+      isNavigatingRef.current = true;
+      setIsHeaderVisible(true); // Ensure header stays visible during animated travel
+
+      const scrollOptions = {
+        offset: -80,
+        duration: 1.6,
+        onComplete: () => {
+          setTimeout(() => {
+            isNavigatingRef.current = false;
+          }, 50);
+        }
+      };
+
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(ref.current, scrollOptions);
+      } else if (ref.current) {
+        const yOffset = -80;
+        const element = ref.current;
+        const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        
+        setTimeout(() => {
+          isNavigatingRef.current = false;
+        }, 800);
+      }
     }
   };
 
@@ -441,8 +541,16 @@ export const App: React.FC = () => {
       {/* Interactive 3D WebGL Canvas Layer */}
       <SystemCore theme={theme} isPreloaded={isPreloaded} />
 
+      {/* Sleek Theme-aware Scroll Progress Bar */}
+      <div className="scroll-progress-container">
+        <div 
+          className="scroll-progress-bar" 
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
       {/* Redesigned Tech HUD Floating Header Navigation */}
-      <header className="header-cyber" style={{
+      <header className={`header-cyber ${!isHeaderVisible ? 'header-hidden' : ''}`} style={{
         opacity: 0,
         transform: 'translateY(-40px)'
       }}>

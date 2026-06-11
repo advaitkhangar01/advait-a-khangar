@@ -398,6 +398,26 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Caching the stable scroll height to prevent dynamic address bar resize jitter on mobile
+  const widthRef = useRef(window.innerWidth);
+  const scrollHeightRef = useRef(0);
+
+  useEffect(() => {
+    const updateScrollHeight = () => {
+      const isMobileSize = window.innerWidth < 1024;
+      const widthChanged = Math.abs(window.innerWidth - widthRef.current) > 5;
+      
+      // On mobile, only update scroll height if the width actually changed (ignoring address bar dynamic resize)
+      if (!isMobileSize || widthChanged || scrollHeightRef.current === 0) {
+        widthRef.current = window.innerWidth;
+        scrollHeightRef.current = document.documentElement.scrollHeight - window.innerHeight;
+      }
+    };
+    updateScrollHeight();
+    window.addEventListener('resize', updateScrollHeight);
+    return () => window.removeEventListener('resize', updateScrollHeight);
+  }, []);
+
   // Track mouse coordinates for smooth parallax
   const mouse = useRef({ x: 0, y: 0 });
   
@@ -471,8 +491,8 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
     groupRef.current.rotation.y += (targetX - groupRef.current.rotation.y) * 0.035;
     groupRef.current.rotation.x += (targetY - groupRef.current.rotation.x) * 0.035;
     
-    // 2. Scroll Transformation
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    // 2. Scroll Transformation using cached stable scrollHeight to ignore dynamic browser bar updates
+    const scrollHeight = scrollHeightRef.current || (document.documentElement.scrollHeight - window.innerHeight);
     const scrollProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
 
     const scrollTargetPos = new THREE.Vector3(2.2, 0, 0); // Default to right side in Hero
@@ -538,10 +558,10 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
     const targetPos = new THREE.Vector3().lerpVectors(new THREE.Vector3(0, p.y, p.z), scrollTargetPos, p.x);
     const targetScale = p.scale * THREE.MathUtils.lerp(1.1, scrollTargetScale, p.x);
 
-    // Apply smooth linear interpolation (lerp - optimized to 0.04 for fluid inertia)
-    groupRef.current.position.lerp(targetPos, 0.04);
+    // Apply smooth linear interpolation (lerp - optimized to 0.028 for deep fluid parallax inertia)
+    groupRef.current.position.lerp(targetPos, 0.028);
     const currentScale = groupRef.current.scale.x;
-    const nextScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.04);
+    const nextScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.028);
     groupRef.current.scale.set(nextScale, nextScale, nextScale);
 
     // Slowly drift position for cinematic ambient flow
@@ -603,6 +623,15 @@ interface SystemCoreProps {
 
 export const SystemCore: React.FC<SystemCoreProps> = ({ theme, isPreloaded }) => {
   const colors = THEME_MAP[theme] || THEME_MAP.gold;
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div 
       className="threejs-canvas-wrapper"
@@ -620,6 +649,7 @@ export const SystemCore: React.FC<SystemCoreProps> = ({ theme, isPreloaded }) =>
         className="interactive-3d-canvas"
         camera={{ position: [0, 0, 6.5], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        dpr={isMobile ? 1 : [1, 1.5]} // Limit pixel ratio on mobile screens to save GPU fill rate and prevent frame drop
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1.5} color="#FAFAF8" />
