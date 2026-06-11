@@ -263,7 +263,6 @@ export const TechnicalMoment: React.FC = () => {
       if (trigger) {
         trigger.kill();
       }
-      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, [activeCaseStudyIdx, isMobile]);
 
