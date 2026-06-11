@@ -1423,7 +1423,7 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
             {/* Structured Chaos-to-Transformation Table */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginBottom: '48px' }}>
               
-              <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '24px', borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
+              <div className="product-flow-grid" style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
                 <span style={{ fontFamily: 'var(--font-interface)', fontWeight: 600, fontSize: '0.85rem', color: 'var(--accent-orange)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   THE PROBLEM:
                 </span>
@@ -1432,7 +1432,7 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '24px', borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
+              <div className="product-flow-grid" style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
                 <span style={{ fontFamily: 'var(--font-interface)', fontWeight: 600, fontSize: '0.85rem', color: 'var(--accent-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   THE SOLUTION:
                 </span>
@@ -1441,7 +1441,7 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '24px', borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
+              <div className="product-flow-grid" style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '20px' }}>
                 <span style={{ fontFamily: 'var(--font-interface)', fontWeight: 600, fontSize: '0.85rem', color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   THE RESULT:
                 </span>
@@ -1484,14 +1484,10 @@ export const ProductMoment: React.FC<ProductMomentProps> = ({ type }) => {
             <DesktopFrame project={current} />
 
             {/* Performance Stats Panel */}
-            <div style={{
+            <div className="product-performance-stats" style={{
               background: '#FAFAF8',
               borderRadius: '8px',
-              border: '1px solid var(--border-light)',
-              padding: '32px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '24px'
+              border: '1px solid var(--border-light)'
             }}>
               {current.metrics.map((m, idx) => (
                 <div key={idx} style={{ textAlign: 'center' }}>

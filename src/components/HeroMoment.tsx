@@ -53,16 +53,13 @@ export const HeroMoment: React.FC<HeroMomentProps> = ({ onExplore, onContact }) 
           </div>
           
           {/* Magazine footer stats */}
-          <div style={{ 
-            display: 'flex', 
-            gap: '80px', 
-            marginTop: '60px', 
+          <div className="hero-stats-container hero-stats-grid" style={{ 
             borderTop: '1px solid var(--border-light)', 
             paddingTop: '20px',
             maxWidth: '650px',
             opacity: 0,
             transform: 'translateY(15px)'
-          }} className="hero-stats-container">
+          }}>
             <div>
               <div style={{ fontFamily: 'var(--font-interface)', fontSize: '0.85rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
                 Operational Focus
@@ -84,7 +81,7 @@ export const HeroMoment: React.FC<HeroMomentProps> = ({ onExplore, onContact }) 
         </div>
         
         {/* Right column serves as negative space to frame the 3D System Core */}
-        <div style={{ height: '100%', minHeight: '400px' }} />
+        <div className="hero-empty-spacer" style={{ height: '100%', minHeight: '400px' }} />
         
       </div>
     </section>

@@ -375,6 +375,16 @@ export const ContactMoment: React.FC = () => {
           margin-top: 20px;
         }
 
+        @media (max-width: 600px) {
+          .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .stats-dashboard {
+            padding: 20px;
+          }
+        }
+
         .stat-item {
           padding: 20px;
           background: rgba(17, 17, 17, 0.01);

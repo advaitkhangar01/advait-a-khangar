@@ -738,14 +738,12 @@ const tenantRouter = (req, res, next) => {
                 <button
                   key={idx}
                   onClick={() => isMobile && setActiveStep(idx)}
+                  className="technical-stepper-btn"
                   style={{ 
                     flex: 1, 
-                    height: '4px', 
                     background: idx <= activeStep ? 'var(--accent-gold)' : 'var(--border-light)',
-                    borderRadius: '2px',
                     transition: 'background 0.3s',
                     border: 'none',
-                    padding: 0,
                     cursor: isMobile ? 'pointer' : 'default'
                   }} 
                 />

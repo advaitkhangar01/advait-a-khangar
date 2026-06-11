@@ -386,6 +386,17 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
   
   const ringsGroupRef = useRef<THREE.Group>(null);
   const pipelinesGroupRef = useRef<THREE.Group>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect viewport size for mobile layouts
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Track mouse coordinates for smooth parallax
   const mouse = useRef({ x: 0, y: 0 });
@@ -467,29 +478,59 @@ const SceneController: React.FC<SceneControllerProps> = ({ theme, isPreloaded })
     const scrollTargetPos = new THREE.Vector3(2.2, 0, 0); // Default to right side in Hero
     let scrollTargetScale: number;
     
-    if (scrollProgress < 0.15) {
-      const ratio = scrollProgress / 0.15;
-      scrollTargetPos.set(2.2 - ratio * 2.2, 0, 0);
-      scrollTargetScale = 1.0 + ratio * 0.2;
-    } else if (scrollProgress >= 0.15 && scrollProgress < 0.35) {
-      const ratio = (scrollProgress - 0.15) / 0.2;
-      scrollTargetPos.set(0, -ratio * 0.5, -ratio * 2);
-      scrollTargetScale = 1.2 - ratio * 0.4;
-    } else if (scrollProgress >= 0.35 && scrollProgress < 0.65) {
-      scrollTargetPos.set(-2.5, 0.5, -1.0); 
-      scrollTargetScale = 0.8;
-    } else if (scrollProgress >= 0.65 && scrollProgress < 0.85) {
-      const ratio = (scrollProgress - 0.65) / 0.2;
-      scrollTargetPos.set(0, 0, 1.0 - ratio * 1.0); 
-      scrollTargetScale = 1.4;
-    } else if (scrollProgress >= 0.85 && scrollProgress < 0.95) {
-      const ratio = (scrollProgress - 0.85) / 0.1;
-      scrollTargetPos.set(2.5 - ratio * 0.5, -1.5 - ratio * 0.5, -1.5);
-      scrollTargetScale = 0.8 - ratio * 0.1;
+    if (isMobile) {
+      // Mobile Centered Positions (no horizontal offset to prevent offscreen rendering)
+      if (scrollProgress < 0.15) {
+        // Hero Moment: Centered background, scaled down slightly
+        scrollTargetPos.set(0, 0, -1.0);
+        scrollTargetScale = 0.55;
+      } else if (scrollProgress >= 0.15 && scrollProgress < 0.35) {
+        // Story Moment
+        scrollTargetPos.set(0, -0.2, -2.5);
+        scrollTargetScale = 0.5;
+      } else if (scrollProgress >= 0.35 && scrollProgress < 0.65) {
+        // Product Moments
+        scrollTargetPos.set(0, 0, -2.0); 
+        scrollTargetScale = 0.45;
+      } else if (scrollProgress >= 0.65 && scrollProgress < 0.85) {
+        // Technical Case Studies / How I Work
+        scrollTargetPos.set(0, 0.2, -1.2); 
+        scrollTargetScale = 0.65;
+      } else if (scrollProgress >= 0.85 && scrollProgress < 0.95) {
+        // Ask AI
+        scrollTargetPos.set(0, -0.6, -1.8);
+        scrollTargetScale = 0.5;
+      } else {
+        // Contact Moment / Footer
+        scrollTargetPos.set(0, -1.0, -2.2);
+        scrollTargetScale = 0.45;
+      }
     } else {
-      const ratio = (scrollProgress - 0.95) / 0.05;
-      scrollTargetPos.set(2.0 - ratio * 2.0, -2.0 + ratio * 2.0, -1.5 - ratio * 1.0);
-      scrollTargetScale = 0.7 + ratio * 0.8;
+      // Desktop Positions
+      if (scrollProgress < 0.15) {
+        const ratio = scrollProgress / 0.15;
+        scrollTargetPos.set(2.2 - ratio * 2.2, 0, 0);
+        scrollTargetScale = 1.0 + ratio * 0.2;
+      } else if (scrollProgress >= 0.15 && scrollProgress < 0.35) {
+        const ratio = (scrollProgress - 0.15) / 0.2;
+        scrollTargetPos.set(0, -ratio * 0.5, -ratio * 2);
+        scrollTargetScale = 1.2 - ratio * 0.4;
+      } else if (scrollProgress >= 0.35 && scrollProgress < 0.65) {
+        scrollTargetPos.set(-2.5, 0.5, -1.0); 
+        scrollTargetScale = 0.8;
+      } else if (scrollProgress >= 0.65 && scrollProgress < 0.85) {
+        const ratio = (scrollProgress - 0.65) / 0.2;
+        scrollTargetPos.set(0, 0, 1.0 - ratio * 1.0); 
+        scrollTargetScale = 1.4;
+      } else if (scrollProgress >= 0.85 && scrollProgress < 0.95) {
+        const ratio = (scrollProgress - 0.85) / 0.1;
+        scrollTargetPos.set(2.5 - ratio * 0.5, -1.5 - ratio * 0.5, -1.5);
+        scrollTargetScale = 0.8 - ratio * 0.1;
+      } else {
+        const ratio = (scrollProgress - 0.95) / 0.05;
+        scrollTargetPos.set(2.0 - ratio * 2.0, -2.0 + ratio * 2.0, -1.5 - ratio * 1.0);
+        scrollTargetScale = 0.7 + ratio * 0.8;
+      }
     }
 
     // 3. Coordinate Transition (Interpolate from centered loading state to scroll-based layout)

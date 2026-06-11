@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Palette } from 'lucide-react';
+import { ArrowUpRight, Palette, Menu, X } from 'lucide-react';
 import LogoIcon from './components/LogoIcon';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -36,6 +36,7 @@ const themes: ThemeOption[] = [
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<string>(() => localStorage.getItem('advait-portfolio-theme') || 'gold');
   const [isPreloaded, setIsPreloaded] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const selectedTheme = themes.find(t => t.id === theme) || themes[0];
@@ -132,6 +133,14 @@ export const App: React.FC = () => {
     const dot = cursorDotRef.current;
     const ring = cursorRingRef.current;
     if (!dot || !ring) return;
+
+    // Disable custom cursor on touch devices
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      dot.style.display = 'none';
+      ring.style.display = 'none';
+      return;
+    }
 
     let mouseX = 0;
     let mouseY = 0;
@@ -487,7 +496,50 @@ export const App: React.FC = () => {
           <span>Get a Free Quote</span>
           <ArrowUpRight size={14} />
         </button>
+
+        {/* Mobile Hamburger Toggle */}
+        <button 
+          className="cyber-hamburger" 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+          style={{ zIndex: 1001 }}
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </header>
+
+      {/* Mobile Drawer Overlay */}
+      <div className={`cyber-mobile-drawer ${isMobileMenuOpen ? 'is-open' : ''}`}>
+        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '6px', height: '6px', borderTop: '2px solid var(--accent-gold)', borderLeft: '2px solid var(--accent-gold)', opacity: 0.6 }} />
+        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '6px', height: '6px', borderTop: '2px solid var(--accent-gold)', borderRight: '2px solid var(--accent-gold)', opacity: 0.6 }} />
+        
+        <nav className="cyber-mobile-nav">
+          <button onClick={() => { scrollToSection(websitesRef); setIsMobileMenuOpen(false); }} className="mobile-nav-item">
+            <span className="nav-item-idx">01 //</span> Websites
+          </button>
+          <button onClick={() => { scrollToSection(productsRef); setIsMobileMenuOpen(false); }} className="mobile-nav-item">
+            <span className="nav-item-idx">02 //</span> Software Tools
+          </button>
+          <button onClick={() => { scrollToSection(technicalRef); setIsMobileMenuOpen(false); }} className="mobile-nav-item">
+            <span className="nav-item-idx">03 //</span> Case Studies
+          </button>
+          <button onClick={() => { scrollToSection(founderRef); setIsMobileMenuOpen(false); }} className="mobile-nav-item">
+            <span className="nav-item-idx">04 //</span> How I Work
+          </button>
+          <button onClick={() => { scrollToSection(aiRef); setIsMobileMenuOpen(false); }} className="mobile-nav-item">
+            <span className="nav-item-idx">05 //</span> Ask AI
+          </button>
+          
+          <button 
+            onClick={() => { scrollToSection(contactRef); setIsMobileMenuOpen(false); }} 
+            className="btn-quote-cyber"
+            style={{ marginTop: '12px', width: '100%', justifyContent: 'center' }}
+          >
+            <span>Get a Free Quote</span>
+            <ArrowUpRight size={14} />
+          </button>
+        </nav>
+      </div>
 
       {/* Main Structural Layout Stack */}
       <main className="layout-moments-container">

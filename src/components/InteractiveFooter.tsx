@@ -290,6 +290,52 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
     setIsDrawing(false);
   };
 
+  const getSigTouchPos = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const canvas = sigCanvasRef.current;
+    if (!canvas || e.touches.length === 0) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    return {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top
+    };
+  };
+
+  const startDrawingTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const canvas = sigCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    if (e.cancelable) e.preventDefault();
+
+    const pos = getSigTouchPos(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    setIsDrawing(true);
+    playSynthSound('beep');
+  };
+
+  const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    const canvas = sigCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    if (e.cancelable) e.preventDefault();
+
+    const pos = getSigTouchPos(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowColor = 'var(--accent-gold)';
+    ctx.shadowBlur = 3;
+    ctx.stroke();
+  };
+
   const clearSignaturePad = () => {
     const canvas = sigCanvasRef.current;
     if (!canvas) return;
@@ -697,7 +743,7 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
           </div>
 
           {/* Majestic screen-spanning huge letters */}
-          <h2 style={{ 
+          <h2 className="footer-kinetic-logo" style={{ 
             fontFamily: 'var(--font-interface)', 
             fontWeight: 900, 
             fontSize: 'clamp(1.2rem, 5.4vw, 6rem)', 
@@ -707,7 +753,7 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
             margin: '0',
             display: 'flex',
             justifyContent: 'space-between',
-            flexWrap: 'nowrap'
+            flexWrap: 'wrap'
           }}>
             {logoText.split('').map((letter, idx) => {
               if (letter === ' ') return <span key={idx} style={{ width: 'clamp(8px, 2.5vw, 35px)' }}></span>;
@@ -857,12 +903,16 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
                 onMouseMove={draw}
                 onMouseUp={stopDrawing}
                 onMouseLeave={stopDrawing}
+                onTouchStart={startDrawingTouch}
+                onTouchMove={drawTouch}
+                onTouchEnd={stopDrawing}
                 style={{
                   display: 'block',
                   width: '100%',
                   height: '152px',
                   cursor: 'crosshair',
-                  background: 'transparent'
+                  background: 'transparent',
+                  touchAction: 'none'
                 }}
               />
               
@@ -1082,18 +1132,10 @@ export const InteractiveFooter: React.FC<InteractiveFooterProps> = ({ scrollToSe
         </div>
 
         {/* BLOCK 3: Futuristic CAD Bottom Control Dock */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: '1.2fr 0.8fr', 
-          gap: '60px', 
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)', 
-          paddingTop: '40px',
-          fontSize: '0.9rem',
-          alignItems: 'start'
-        }}>
+        <div className="footer-bottom-grid">
           
           {/* Sitemap links and System mood preset color panels */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '30px' }}>
+          <div className="footer-sitemap-presets-grid">
             
             {/* Sitemap index */}
             <div>
